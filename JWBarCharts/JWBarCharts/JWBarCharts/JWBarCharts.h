@@ -7,3 +7,5 @@
 //
 
 #import "JWBarChartsView.h"
+#import "JWBarChartsDefine.h"
+#import "JWBarChartsItem.h"

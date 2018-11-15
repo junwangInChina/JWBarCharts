@@ -10,18 +10,18 @@
 
 @interface JWBarChartsView : UIView
 
-@property (nonatomic, assign) NSInteger yMax;
-@property (nonatomic, assign) NSInteger yMin;
-@property (nonatomic, assign) NSInteger yLabelCount;
+@property (nonatomic, assign) CGFloat yMax;
+@property (nonatomic, assign) NSInteger yMin;            // default 0
+@property (nonatomic, assign) NSInteger yLabelCount;     // default 5
 @property (nonatomic, strong) NSArray *yLabelTexts;
-@property (nonatomic, strong) UIFont *yLabelTextFont;
-@property (nonatomic, strong) UIColor *yLabelTextColor;
-@property (nonatomic, assign) BOOL yHide;
+@property (nonatomic, strong) UIFont *yLabelTextFont;    // default Arial 13
+@property (nonatomic, strong) UIColor *yLabelTextColor;  // default #333333
+@property (nonatomic, strong) UIColor *yAxisColor;       // default #333333
+@property (nonatomic, assign) BOOL yHide;                // default NO
 
-@property (nonatomic, strong) NSArray *xLabelTexts;
-@property (nonatomic, strong) UIFont *xLabelTextFont;
-@property (nonatomic, strong) UIColor *xLabelTextColor;
-@property (nonatomic, assign) BOOL xHide;
+@property (nonatomic, strong) UIFont *xLabelTextFont;       // default Arial 13
+@property (nonatomic, strong) UIColor *xLabelTextColor;     // default #333333
+@property (nonatomic, assign) BOOL xHide;                   // default NO
 
 @property (nonatomic, strong) NSArray *items;
 

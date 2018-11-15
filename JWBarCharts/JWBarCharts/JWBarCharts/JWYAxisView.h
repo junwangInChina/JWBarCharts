@@ -10,9 +10,14 @@
 
 @interface JWYAxisView : UIView
 
-- (void)reloadYaxis:(CGFloat)max
-                min:(CGFloat)min
-         labelCount:(NSInteger)labelCount
-         labelTexts:(NSString *)labelTexts;
+@property (nonatomic, assign) CGFloat maxValue;
+@property (nonatomic, assign) NSInteger minValue;
+@property (nonatomic, assign) NSInteger labelCount;
+@property (nonatomic, strong) UIFont *labelTextFont;
+@property (nonatomic, strong) UIColor *labelTextColor;
+@property (nonatomic, strong) NSArray *labelTexts;
+@property (nonatomic, strong) UIColor *bgColor;
+
+- (void)reloadYaxis;
 
 @end

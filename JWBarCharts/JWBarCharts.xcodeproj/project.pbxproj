@@ -16,6 +16,7 @@
 		DAE8DB4D219C0E0100E213B6 /* JWBarChartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB4C219C0E0100E213B6 /* JWBarChartsView.m */; };
 		DAE8DB50219C231400E213B6 /* JWBarChartsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB4F219C231400E213B6 /* JWBarChartsItem.m */; };
 		DAE8DB53219C2D7F00E213B6 /* JWYAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB52219C2D7F00E213B6 /* JWYAxisView.m */; };
+		DAE8DB59219D046900E213B6 /* JWBarChartsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */; };
 		FC13D515BCCC4B791BAEBEE2 /* libPods-JWBarCharts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB8FB979D5A1F1317566D51 /* libPods-JWBarCharts.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,9 @@
 		DAE8DB4F219C231400E213B6 /* JWBarChartsItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWBarChartsItem.m; sourceTree = "<group>"; };
 		DAE8DB51219C2D7F00E213B6 /* JWYAxisView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWYAxisView.h; sourceTree = "<group>"; };
 		DAE8DB52219C2D7F00E213B6 /* JWYAxisView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWYAxisView.m; sourceTree = "<group>"; };
+		DAE8DB54219D011800E213B6 /* JWBarChartsDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWBarChartsDefine.h; sourceTree = "<group>"; };
+		DAE8DB57219D046900E213B6 /* JWBarChartsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWBarChartsCell.h; sourceTree = "<group>"; };
+		DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWBarChartsCell.m; sourceTree = "<group>"; };
 		EEB8FB979D5A1F1317566D51 /* libPods-JWBarCharts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWBarCharts.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -110,10 +114,13 @@
 			isa = PBXGroup;
 			children = (
 				DAE8DB48219C0DC700E213B6 /* JWBarCharts.h */,
+				DAE8DB54219D011800E213B6 /* JWBarChartsDefine.h */,
 				DAE8DB4B219C0E0100E213B6 /* JWBarChartsView.h */,
 				DAE8DB4C219C0E0100E213B6 /* JWBarChartsView.m */,
 				DAE8DB4E219C231400E213B6 /* JWBarChartsItem.h */,
 				DAE8DB4F219C231400E213B6 /* JWBarChartsItem.m */,
+				DAE8DB57219D046900E213B6 /* JWBarChartsCell.h */,
+				DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */,
 				DAE8DB51219C2D7F00E213B6 /* JWYAxisView.h */,
 				DAE8DB52219C2D7F00E213B6 /* JWYAxisView.m */,
 			);
@@ -212,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE8DB59219D046900E213B6 /* JWBarChartsCell.m in Sources */,
 				DAE8DB53219C2D7F00E213B6 /* JWYAxisView.m in Sources */,
 				DAE8DB36219C0CFF00E213B6 /* ViewController.m in Sources */,
 				DAE8DB41219C0D0100E213B6 /* main.m in Sources */,
