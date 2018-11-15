@@ -23,6 +23,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 @property (nonatomic, strong) JWYAxisView *yAxis;
 @property (nonatomic, strong) UIView *xAxis;
 @property (nonatomic, strong) UICollectionView *chartsCollectionView;
+@property (nonatomic, assign) NSInteger firstBarIndex;
 
 @end
 
@@ -179,6 +180,12 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     return self.items.count;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake((JW_BARCHARTS_SCREEN_WIDTH - (!self.yHide && self.yLabelTexts.count > 0 ? JW_BARCHARTS_YAXIS_WIDTH : 0))/7.0,
+                      CGRectGetHeight(self.frame));
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     JWBarChartsCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kBarChartsCell forIndexPath:indexPath];
@@ -189,6 +196,37 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     }
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.items.count <= indexPath.row) return;
+    
+    JWBarChartsItem *tempItem = self.items[indexPath.row];
+    !self.barTouch?:self.barTouch(tempItem);
+}
+
+#pragma mark - UIScrollView Delegate & Datasource
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSInteger index = scrollView.contentOffset.x / ((JW_BARCHARTS_SCREEN_WIDTH - (!self.yHide && self.yLabelTexts.count > 0 ? JW_BARCHARTS_YAXIS_WIDTH : 0)) / 7.0);
+    if (index < 0) index = 0;
+    if (index == self.firstBarIndex) return;
+    
+    self.firstBarIndex = index;
+    JWBarChartsItem *tempLeftItem = nil;
+    JWBarChartsItem *tempRightItem = nil;
+    
+    if (self.items.count > index)
+    {
+        tempLeftItem = self.items[index];
+    }
+    if (self.items.count > (index + 6))
+    {
+        tempRightItem = self.items[(index + 6)];
+    }
+    
+    !self.barDidScroll?:self.barDidScroll(tempLeftItem, tempRightItem);
 }
 
 #pragma mark - Public Method

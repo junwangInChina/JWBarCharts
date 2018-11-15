@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class JWBarChartsItem;
+
 @interface JWBarChartsView : UIView
 
 @property (nonatomic, assign) CGFloat yMax;
@@ -25,6 +27,9 @@
 @property (nonatomic, strong) UIColor *xAxisColor;          // default #333333
 
 @property (nonatomic, strong) NSArray *items;
+
+@property (nonatomic, copy) void(^barTouch)(JWBarChartsItem *item);
+@property (nonatomic, copy) void(^barDidScroll)(JWBarChartsItem *leftItem, JWBarChartsItem *rightItem);
 
 - (void)reloadCharts;
 

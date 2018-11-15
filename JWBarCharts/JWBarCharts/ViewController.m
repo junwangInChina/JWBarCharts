@@ -36,7 +36,7 @@
     JWBarChartsView *tempBarView = [JWBarChartsView new];
     tempBarView.yMax = 24;
     tempBarView.backgroundColor = [UIColor whiteColor];
-    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
+//    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
     [self.view addSubview:tempBarView];
     JW_BC_WS(this)
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,6 +44,13 @@
         make.top.equalTo(this.view).with.offset(100);
         make.height.mas_equalTo(400);
     }];
+    
+    tempBarView.barTouch = ^(JWBarChartsItem *item) {
+        NSLog(@"点击了 %@:",item.itemXaisText);
+    };
+    tempBarView.barDidScroll = ^(JWBarChartsItem *leftItem, JWBarChartsItem *rightItem) {
+        NSLog(@"滑动到 %@:",leftItem.itemXaisText);
+    };
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
