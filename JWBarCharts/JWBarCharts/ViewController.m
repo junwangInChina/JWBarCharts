@@ -125,6 +125,12 @@
         tempItem11.itemValueLabelText = @"0时";
         [tempArray addObject:tempItem11];
 
+        JWBarChartsItem *tempItem12 = [JWBarChartsItem new];
+        tempItem12.itemValues = @[@(1),@(3)];
+        tempItem12.itemBackgroundColors = @[[UIColor colorWithRed:155.0/255.0 green:156.0/255.0 blue:170.0/255.0 alpha:0.8],[UIColor colorWithRed:255.0/255.0 green:137.0/255.0 blue:1.0/255.0 alpha:1.0]];
+        tempItem12.itemXaisText = @"08-12";
+        tempItem12.itemValueLabelText = @"4时";
+        [tempArray addObject:tempItem12];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

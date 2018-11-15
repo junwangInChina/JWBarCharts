@@ -196,6 +196,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     if (self.items.count <= 0) return;
     
+    // Y 轴
     if (!self.yHide && self.yLabelTexts.count > 0)
     {
         [self calculationcMaxValue];
@@ -203,6 +204,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         [self.yAxis reloadYaxis];
     }
     
+    // 画柱状图
     for (JWBarChartsItem *tempItem in self.items)
     {
         tempItem.itemValueMax = self.yMax;
@@ -210,8 +212,10 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     
     [self.chartsCollectionView reloadData];
     
+    // X轴
     self.xAxis.hidden = self.xHide;
     
+    // Y轴Size调整
     if (!self.yHide && self.yLabelTexts.count > 0)
     {
         [self bringSubviewToFront:self.yAxis];
@@ -220,6 +224,13 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     [self.yAxis mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo((!this.yHide && this.yLabelTexts.count > 0) ? JW_BARCHARTS_YAXIS_WIDTH : 0);
     }];
+    // 通知页面，重新计算size
+    [self layoutIfNeeded];
+    // 自动滚动到最后
+    [self.chartsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(self.items.count-1)
+                                                                          inSection:0]
+                                      atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                              animated:YES];
 }
 
 #pragma mark - Helper
