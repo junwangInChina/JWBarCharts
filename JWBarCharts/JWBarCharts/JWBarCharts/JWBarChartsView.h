@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIFont *xLabelTextFont;       // default Arial 13
 @property (nonatomic, strong) UIColor *xLabelTextColor;     // default #333333
 @property (nonatomic, assign) BOOL xHide;                   // default NO
+@property (nonatomic, strong) UIColor *xAxisColor;          // default #333333
 
 @property (nonatomic, strong) NSArray *items;
 

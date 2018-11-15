@@ -21,6 +21,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 @interface JWBarChartsView() <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) JWYAxisView *yAxis;
+@property (nonatomic, strong) UIView *xAxis;
 @property (nonatomic, strong) UICollectionView *chartsCollectionView;
 
 @end
@@ -48,6 +49,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     
     self.xLabelTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.xLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+    self.xAxisColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+    self.xHide = NO;
 }
 
 - (void)setYMax:(CGFloat)yMax
@@ -123,6 +126,23 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     return _yAxis;
 }
 
+- (UIView *)xAxis
+{
+    if (!_xAxis)
+    {
+        self.xAxis = [UIView new];
+        _xAxis.backgroundColor = self.xAxisColor;
+        [self addSubview:_xAxis];
+        
+        JW_BC_WS(this)
+        [self.xAxis mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(this.chartsCollectionView);
+            make.height.mas_equalTo(1.0/JW_BARCHARTS_SCREEN_SCALE);
+        }];
+    }
+    return _xAxis;
+}
+
 - (UICollectionView *)chartsCollectionView
 {
     if (!_chartsCollectionView)
@@ -189,6 +209,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     }
     
     [self.chartsCollectionView reloadData];
+    
+    self.xAxis.hidden = self.xHide;
     
     if (!self.yHide && self.yLabelTexts.count > 0)
     {

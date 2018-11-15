@@ -25,7 +25,7 @@
         self.itemXaisLabelFont = self.itemValueLabelFont = [UIFont fontWithName:@"Arial" size:13];
         self.itemXaisLabelTextColor = self.itemValueLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
         self.itemBackgroundColors = @[[UIColor colorWithRed:155.0/255.0 green:156.0/255.0 blue:170.0/255.0 alpha:0.8]];
-        self.itemValueLableHide = NO;
+        self.itemValueLableHide = YES;
     }
     return self;
 }
