@@ -17,6 +17,7 @@
 		DAE8DB50219C231400E213B6 /* JWBarChartsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB4F219C231400E213B6 /* JWBarChartsItem.m */; };
 		DAE8DB53219C2D7F00E213B6 /* JWYAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB52219C2D7F00E213B6 /* JWYAxisView.m */; };
 		DAE8DB59219D046900E213B6 /* JWBarChartsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */; };
+		DAE8DB5C219E548200E213B6 /* JWMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB5B219E548200E213B6 /* JWMaskView.m */; };
 		FC13D515BCCC4B791BAEBEE2 /* libPods-JWBarCharts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB8FB979D5A1F1317566D51 /* libPods-JWBarCharts.a */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,8 @@
 		DAE8DB54219D011800E213B6 /* JWBarChartsDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWBarChartsDefine.h; sourceTree = "<group>"; };
 		DAE8DB57219D046900E213B6 /* JWBarChartsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWBarChartsCell.h; sourceTree = "<group>"; };
 		DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWBarChartsCell.m; sourceTree = "<group>"; };
+		DAE8DB5A219E548200E213B6 /* JWMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWMaskView.h; sourceTree = "<group>"; };
+		DAE8DB5B219E548200E213B6 /* JWMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWMaskView.m; sourceTree = "<group>"; };
 		EEB8FB979D5A1F1317566D51 /* libPods-JWBarCharts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWBarCharts.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -123,6 +126,8 @@
 				DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */,
 				DAE8DB51219C2D7F00E213B6 /* JWYAxisView.h */,
 				DAE8DB52219C2D7F00E213B6 /* JWYAxisView.m */,
+				DAE8DB5A219E548200E213B6 /* JWMaskView.h */,
+				DAE8DB5B219E548200E213B6 /* JWMaskView.m */,
 			);
 			path = JWBarCharts;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				DAE8DB50219C231400E213B6 /* JWBarChartsItem.m in Sources */,
 				DAE8DB4D219C0E0100E213B6 /* JWBarChartsView.m in Sources */,
 				DAE8DB33219C0CFF00E213B6 /* AppDelegate.m in Sources */,
+				DAE8DB5C219E548200E213B6 /* JWMaskView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

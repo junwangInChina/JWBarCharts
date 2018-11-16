@@ -37,8 +37,9 @@
     tempBarView.yMax = 24;
     tempBarView.backgroundColor = [UIColor whiteColor];
 //    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
+//    tempBarView.maskHide = NO;
     [self.view addSubview:tempBarView];
-    JW_BC_WS(this)
+    __weak __typeof(&*self)this = self;
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(this.view);
         make.top.equalTo(this.view).with.offset(100);
@@ -46,10 +47,10 @@
     }];
     
     tempBarView.barTouch = ^(JWBarChartsItem *item) {
-        NSLog(@"点击了 %@:",item.itemXaisText);
+        //NSLog(@"点击了 %@:",item.itemXaisText);
     };
     tempBarView.barDidScroll = ^(JWBarChartsItem *leftItem, JWBarChartsItem *rightItem) {
-        NSLog(@"滑动到 %@:",leftItem.itemXaisText);
+        //NSLog(@"滑动到 %@:",leftItem.itemXaisText);
     };
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -143,6 +144,8 @@
             
             tempBarView.items = tempArray;
             [tempBarView reloadCharts];
+            
+            [tempBarView seleteToBar:[tempArray count] - 1];
         });
     });
 }

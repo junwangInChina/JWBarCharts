@@ -11,6 +11,7 @@
 #import "JWYAxisView.h"
 #import "JWBarChartsItem.h"
 #import "JWBarChartsCell.h"
+#import "JWMaskView.h"
 
 #import "JWBarChartsDefine.h"
 
@@ -21,6 +22,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 @interface JWBarChartsView() <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) JWYAxisView *yAxis;
+@property (nonatomic, strong) JWMaskView *maskView;
 @property (nonatomic, strong) UIView *xAxis;
 @property (nonatomic, strong) UICollectionView *chartsCollectionView;
 @property (nonatomic, assign) NSInteger firstBarIndex;
@@ -43,7 +45,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     self.yMin = 0;
     self.yHide = NO;
-    self.yLabelCount = 5;
     self.yLabelTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.yLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.yAxisColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
@@ -52,6 +53,11 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.xLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.xAxisColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.xHide = NO;
+    
+    self.maskTextFont = [UIFont fontWithName:@"Arial" size:13];
+    self.maskTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+    self.maskHide = YES;
+    self.maskView.hidden = YES;
 }
 
 - (void)setYMax:(CGFloat)yMax
@@ -73,13 +79,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     _yAxisColor = yAxisColor;
     
     self.yAxis.bgColor = yAxisColor;
-}
-
-- (void)setYLabelCount:(NSInteger)yLabelCount
-{
-    _yLabelCount = yLabelCount;
-    
-    self.yAxis.labelCount = yLabelCount;
 }
 
 - (void)setYLabelTextFont:(UIFont *)yLabelTextFont
@@ -106,6 +105,27 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
     self.yAxis.backgroundColor = backgroundColor;
+}
+
+- (void)setMaskTextFont:(UIFont *)maskTextFont
+{
+    _maskTextFont = maskTextFont;
+    
+    self.maskView.maskFont = maskTextFont;
+}
+
+- (void)setMaskTextColor:(UIColor *)maskTextColor
+{
+    _maskTextColor = maskTextColor;
+    
+    self.maskView.maskTextColor = maskTextColor;
+}
+
+- (void)setMaskHide:(BOOL)maskHide
+{
+    _maskHide = maskHide;
+    
+    self.maskView.hidden = maskHide;
 }
 
 #pragma mark - Lazy loading
@@ -142,6 +162,23 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         }];
     }
     return _xAxis;
+}
+
+- (JWMaskView *)maskView
+{
+    if (!_maskView)
+    {
+        self.maskView = [JWMaskView new];
+        _maskView.backgroundColor = [UIColor clearColor];
+        _maskView.hidden = YES;
+        [self addSubview:_maskView];
+        
+        JW_BC_WS(this)
+        [self.maskView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(this);
+        }];
+    }
+    return _maskView;
 }
 
 - (UICollectionView *)chartsCollectionView
@@ -204,9 +241,16 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     
     JWBarChartsItem *tempItem = self.items[indexPath.row];
     !self.barTouch?:self.barTouch(tempItem);
+    
+    [self barDidSeleted:indexPath];
 }
 
 #pragma mark - UIScrollView Delegate & Datasource
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.maskView.hidden = YES;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSInteger index = scrollView.contentOffset.x / ((JW_BARCHARTS_SCREEN_WIDTH - (!self.yHide && self.yLabelTexts.count > 0 ? JW_BARCHARTS_YAXIS_WIDTH : 0)) / 7.0);
@@ -271,6 +315,28 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
                                               animated:YES];
 }
 
+- (void)scrollToBar:(NSInteger)index
+{
+    if (self.items.count > index)
+    {
+        [self.chartsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index
+                                                                              inSection:0]
+                                          atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                                  animated:YES];
+    }
+}
+
+- (void)seleteToBar:(NSInteger)index
+{
+    if (self.items.count > index)
+    {
+        self.maskView.hidden = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self barDidSeleted:[NSIndexPath indexPathForRow:index inSection:0]];
+        });
+    }
+}
+
 #pragma mark - Helper
 - (void)calculationcMaxValue
 {
@@ -283,6 +349,40 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.yMax = (self.yMax > tempMax) ? self.yMax : tempMax;
 }
 
+- (void)barDidSeleted:(NSIndexPath *)indexPath
+{
+    if (!self.maskHide)
+    {
+        JWBarChartsItem *tempItem = self.items[indexPath.row];
+
+        // 获取选中的cell
+        JWBarChartsCell *tempCell = (JWBarChartsCell *)[self.chartsCollectionView cellForItemAtIndexPath:indexPath];
+        // 获取选中cell在表格中的坐标
+        CGRect tempRectInChart = [self.chartsCollectionView convertRect:tempCell.frame toView:self.chartsCollectionView];
+        // 获取选中cell在外层view上的相对坐标
+        CGRect tempRectInSuper = [self.chartsCollectionView convertRect:tempRectInChart toView:self];
+        // 刷新内容
+        [self.maskView reload:tempItem.itemMaskText];
+        
+        // 计算
+        CGFloat tempCenterX = tempRectInSuper.origin.x + tempRectInSuper.size.width / 2.0;
+        CGFloat tempMultiplie = (tempCenterX / (CGRectGetWidth(self.frame) <= 0 ? JW_BARCHARTS_SCREEN_WIDTH : CGRectGetWidth(self.frame))) * 2;
+        CGFloat tempY = tempRectInSuper.size.height * tempItem.itemMultiplied + 5;
+        // 刷新位置
+        JW_BC_WS(this)
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.maskView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.center.equalTo(this).with.multipliedBy(tempMultiplie);
+                make.bottom.equalTo(this).with.offset(-tempY);
+            }];
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            // 显示mask
+            self.maskView.hidden = self.maskHide;
+        }];
+        
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

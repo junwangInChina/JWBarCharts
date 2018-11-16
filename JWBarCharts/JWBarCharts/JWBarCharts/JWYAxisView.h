@@ -12,7 +12,6 @@
 
 @property (nonatomic, assign) CGFloat maxValue;
 @property (nonatomic, assign) NSInteger minValue;
-@property (nonatomic, assign) NSInteger labelCount;
 @property (nonatomic, strong) UIFont *labelTextFont;
 @property (nonatomic, strong) UIColor *labelTextColor;
 @property (nonatomic, strong) NSArray *labelTexts;

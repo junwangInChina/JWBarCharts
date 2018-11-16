@@ -19,12 +19,14 @@
 @property (nonatomic, copy) NSString *itemValueLabelText;
 @property (nonatomic, strong) UIFont *itemValueLabelFont;            // default Arial 13
 @property (nonatomic, strong) UIColor *itemValueLabelTextColor;      // default #333333
-@property (nonatomic, assign) BOOL itemValueLableHide;               // default YES
+@property (nonatomic, assign) BOOL itemValueLableHide;               // default NO
 
 @property (nonatomic, strong) NSArray *itemBackgroundColors;         // default @[#9b9caa 0.8]
 
 @property (nonatomic, copy) NSString *itemXaisText;
 @property (nonatomic, strong) UIFont *itemXaisLabelFont;            // default Arial 13
 @property (nonatomic, strong) UIColor *itemXaisLabelTextColor;      // default #333333
+
+@property (nonatomic, copy) NSString *itemMaskText;                 // default itemValueLabelText
 
 @end
