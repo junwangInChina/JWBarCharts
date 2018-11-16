@@ -25,6 +25,9 @@
 @property (nonatomic, assign) BOOL xHide;                   // default NO
 @property (nonatomic, strong) UIColor *xAxisColor;          // default #333333
 
+@property (nonatomic, assign) BOOL xSeparatorHide;          // default YES
+@property (nonatomic, strong) UIColor *xSeparatorColor;     // default #333333
+
 @property (nonatomic, strong) UIFont *maskTextFont;       // default Arial 13
 @property (nonatomic, strong) UIColor *maskTextColor;     // default #333333
 @property (nonatomic, assign) BOOL maskHide;              // default YES

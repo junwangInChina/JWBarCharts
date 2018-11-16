@@ -38,6 +38,7 @@
     tempBarView.backgroundColor = [UIColor whiteColor];
 //    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
 //    tempBarView.maskHide = NO;
+//    tempBarView.xSeparatorHide = NO;
     [self.view addSubview:tempBarView];
     __weak __typeof(&*self)this = self;
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {

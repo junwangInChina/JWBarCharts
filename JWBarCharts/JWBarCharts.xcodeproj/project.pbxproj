@@ -18,6 +18,7 @@
 		DAE8DB53219C2D7F00E213B6 /* JWYAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB52219C2D7F00E213B6 /* JWYAxisView.m */; };
 		DAE8DB59219D046900E213B6 /* JWBarChartsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */; };
 		DAE8DB5C219E548200E213B6 /* JWMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB5B219E548200E213B6 /* JWMaskView.m */; };
+		DAE8DB5F219EA2BB00E213B6 /* JWXSepartorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8DB5E219EA2BB00E213B6 /* JWXSepartorView.m */; };
 		FC13D515BCCC4B791BAEBEE2 /* libPods-JWBarCharts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB8FB979D5A1F1317566D51 /* libPods-JWBarCharts.a */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,8 @@
 		DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWBarChartsCell.m; sourceTree = "<group>"; };
 		DAE8DB5A219E548200E213B6 /* JWMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWMaskView.h; sourceTree = "<group>"; };
 		DAE8DB5B219E548200E213B6 /* JWMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWMaskView.m; sourceTree = "<group>"; };
+		DAE8DB5D219EA2BB00E213B6 /* JWXSepartorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWXSepartorView.h; sourceTree = "<group>"; };
+		DAE8DB5E219EA2BB00E213B6 /* JWXSepartorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWXSepartorView.m; sourceTree = "<group>"; };
 		EEB8FB979D5A1F1317566D51 /* libPods-JWBarCharts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JWBarCharts.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -126,6 +129,8 @@
 				DAE8DB58219D046900E213B6 /* JWBarChartsCell.m */,
 				DAE8DB51219C2D7F00E213B6 /* JWYAxisView.h */,
 				DAE8DB52219C2D7F00E213B6 /* JWYAxisView.m */,
+				DAE8DB5D219EA2BB00E213B6 /* JWXSepartorView.h */,
+				DAE8DB5E219EA2BB00E213B6 /* JWXSepartorView.m */,
 				DAE8DB5A219E548200E213B6 /* JWMaskView.h */,
 				DAE8DB5B219E548200E213B6 /* JWMaskView.m */,
 			);
@@ -226,6 +231,7 @@
 			files = (
 				DAE8DB59219D046900E213B6 /* JWBarChartsCell.m in Sources */,
 				DAE8DB53219C2D7F00E213B6 /* JWYAxisView.m in Sources */,
+				DAE8DB5F219EA2BB00E213B6 /* JWXSepartorView.m in Sources */,
 				DAE8DB36219C0CFF00E213B6 /* ViewController.m in Sources */,
 				DAE8DB41219C0D0100E213B6 /* main.m in Sources */,
 				DAE8DB50219C231400E213B6 /* JWBarChartsItem.m in Sources */,

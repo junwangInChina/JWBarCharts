@@ -11,6 +11,7 @@
 #define JW_BARCHARTS_SCREEN_SCALE       ([UIScreen mainScreen].scale)
 #define JW_BARCHARTS_YAXIS_WIDTH        30
 #define JW_BARCHARTS_YAXIS_OUT          20
+#define JW_BARCHARTS_X_SEPARTOR_NUM     3
 
 #define JW_BC_WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 

@@ -12,6 +12,7 @@
 #import "JWBarChartsItem.h"
 #import "JWBarChartsCell.h"
 #import "JWMaskView.h"
+#import "JWXSepartorView.h"
 
 #import "JWBarChartsDefine.h"
 
@@ -53,6 +54,9 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.xLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.xAxisColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.xHide = NO;
+    
+    self.xSeparatorHide = YES;
+    self.xSeparatorColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     
     self.maskTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.maskTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
@@ -194,7 +198,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         
         self.chartsCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds
                                                        collectionViewLayout:tempLayout];
-        _chartsCollectionView.backgroundColor = self.backgroundColor;
+        _chartsCollectionView.backgroundColor = [UIColor clearColor];
         _chartsCollectionView.delegate = self;
         _chartsCollectionView.dataSource = self;
         _chartsCollectionView.showsHorizontalScrollIndicator = NO;
@@ -227,6 +231,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     JWBarChartsCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kBarChartsCell forIndexPath:indexPath];
     
+    cell.backgroundColor = [UIColor clearColor];
     if (self.items.count > indexPath.row)
     {
         [cell configItem:self.items[indexPath.row]];
@@ -278,6 +283,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     if (self.items.count <= 0) return;
     
+    [self separator];
+
     // Y 轴
     if (!self.yHide && self.yLabelTexts.count > 0)
     {
@@ -313,6 +320,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
                                                                           inSection:0]
                                       atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                               animated:YES];
+    
 }
 
 - (void)scrollToBar:(NSInteger)index
@@ -381,6 +389,33 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
             self.maskView.hidden = self.maskHide;
         }];
         
+    }
+}
+
+- (void)separator
+{
+    if (self.xSeparatorHide) return;
+    
+    for (NSInteger i = 0; i < JW_BARCHARTS_X_SEPARTOR_NUM; i++)
+    {
+        JWXSepartorView *tempLineView = [[JWXSepartorView alloc] init];
+        tempLineView.separtorColor = self.xSeparatorColor;
+        [self addSubview:tempLineView];
+        
+        JW_BC_WS(this)
+        [tempLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(this);
+            make.height.mas_equalTo(1.0/JW_BARCHARTS_SCREEN_SCALE);
+            if (i == 0)
+            {
+                make.top.equalTo(this);
+            }
+            else
+            {
+                CGFloat tempM = ((i * 10/ 10.0) * 2) / ((JW_BARCHARTS_X_SEPARTOR_NUM - 1) + 1); // 2n/n+1
+                make.centerY.equalTo(this).multipliedBy(tempM);
+            }
+        }];
     }
 }
 /*
