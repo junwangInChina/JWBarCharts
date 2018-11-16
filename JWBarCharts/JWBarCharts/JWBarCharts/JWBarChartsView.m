@@ -283,6 +283,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     if (self.items.count <= 0) return;
     
+    // X轴分割线
     [self separator];
 
     // Y 轴
@@ -388,7 +389,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
             // 显示mask
             self.maskView.hidden = self.maskHide;
         }];
-        
     }
 }
 
