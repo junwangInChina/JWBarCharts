@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.author       = { "wangjun" => "github_work@163.com" }
 
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "http://EXAMPLE/JWBarCharts.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/junwangInChina/JWBarCharts", :tag => "#{s.version}" }
   s.source_files  = "JWBarCharts/JWBarCharts/JWBarCharts/**/*.{h,m}"
 
 
