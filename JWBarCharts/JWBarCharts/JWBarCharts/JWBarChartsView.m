@@ -286,11 +286,12 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     // X轴分割线
     [self separator];
 
+    // 计算最大值
+    [self calculationcMaxValue];
+
     // Y 轴
     if (!self.yHide && self.yLabelTexts.count > 0)
     {
-        [self calculationcMaxValue];
-
         [self.yAxis reloadYaxis];
     }
     
@@ -371,6 +372,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         // 获取选中cell在外层view上的相对坐标
         CGRect tempRectInSuper = [self.chartsCollectionView convertRect:tempRectInChart toView:self];
         // 刷新内容
+        self.maskView.maskFont = tempItem.itemMaskLabelFont;
+        self.maskView.maskTextColor = tempItem.itemMaskLabelTextColor;
         [self.maskView reload:tempItem.itemMaskText];
         
         // 计算

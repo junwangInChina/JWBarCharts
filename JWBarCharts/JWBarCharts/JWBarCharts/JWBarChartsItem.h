@@ -28,5 +28,6 @@
 @property (nonatomic, strong) UIColor *itemXaisLabelTextColor;      // default #333333
 
 @property (nonatomic, copy) NSString *itemMaskText;                 // default itemValueLabelText
-
+@property (nonatomic, strong) UIFont *itemMaskLabelFont;            // default Arial 13
+@property (nonatomic, strong) UIColor *itemMaskLabelTextColor;      // default #333333
 @end
