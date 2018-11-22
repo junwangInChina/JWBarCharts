@@ -245,7 +245,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     if (self.items.count <= indexPath.row) return;
     
     JWBarChartsItem *tempItem = self.items[indexPath.row];
-    !self.barTouch?:self.barTouch(tempItem);
+    !self.barTouch?:self.barTouch(indexPath.row,tempItem);
     
     [self barDidSeleted:indexPath];
 }
@@ -275,7 +275,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         tempRightItem = self.items[(index + 6)];
     }
     
-    !self.barDidScroll?:self.barDidScroll(tempLeftItem, tempRightItem);
+    !self.barDidScroll?:self.barDidScroll(index, tempLeftItem,(index + 6) ,tempRightItem);
 }
 
 #pragma mark - Public Method

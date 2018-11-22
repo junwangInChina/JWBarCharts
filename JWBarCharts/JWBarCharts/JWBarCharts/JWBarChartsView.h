@@ -34,8 +34,8 @@
 
 @property (nonatomic, strong) NSArray *items;
 
-@property (nonatomic, copy) void(^barTouch)(JWBarChartsItem *item);
-@property (nonatomic, copy) void(^barDidScroll)(JWBarChartsItem *leftItem, JWBarChartsItem *rightItem);
+@property (nonatomic, copy) void(^barTouch)(NSInteger touchIndex, JWBarChartsItem *item);
+@property (nonatomic, copy) void(^barDidScroll)(NSInteger leftIndex, JWBarChartsItem *leftItem,NSInteger rightIndex, JWBarChartsItem *rightItem);
 
 - (void)reloadCharts;
 
