@@ -28,6 +28,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 @property (nonatomic, strong) UICollectionView *chartsCollectionView;
 @property (nonatomic, assign) NSInteger firstBarIndex;
 
+@property (nonatomic, assign) BOOL swipeCallback;
+
 @end
 
 @implementation JWBarChartsView
@@ -254,6 +256,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.maskView.hidden = YES;
+    self.swipeCallback = YES;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -274,8 +277,10 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     {
         tempRightItem = self.items[(index + 6)];
     }
-    
-    !self.barDidScroll?:self.barDidScroll(index, tempLeftItem,(index + 6) ,tempRightItem);
+    if (self.swipeCallback)
+    {
+        !self.barDidScroll?:self.barDidScroll(index, tempLeftItem,(index + 6) ,tempRightItem);
+    }
 }
 
 #pragma mark - Public Method
@@ -322,6 +327,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
                                                                           inSection:0]
                                       atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                               animated:YES];
+    self.swipeCallback = NO;
     
 }
 
@@ -334,6 +340,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
                                           atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                                   animated:YES];
         self.maskView.hidden = YES;
+        self.swipeCallback = NO;
     }
 }
 
