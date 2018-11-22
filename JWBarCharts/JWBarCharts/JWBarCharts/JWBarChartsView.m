@@ -333,6 +333,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
                                                                               inSection:0]
                                           atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                                   animated:YES];
+        self.maskView.hidden = YES;
     }
 }
 
