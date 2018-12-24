@@ -134,6 +134,13 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.maskView.hidden = maskHide;
 }
 
+- (void)setXSeparatorHide:(BOOL)xSeparatorHide
+{
+    _xSeparatorHide = xSeparatorHide;
+    
+    [self separator];
+}
+
 #pragma mark - Lazy loading
 - (JWYAxisView *)yAxis
 {
@@ -287,9 +294,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 - (void)reloadCharts
 {
     if (self.items.count <= 0) return;
-    
-    // X轴分割线
-    [self separator];
 
     // 计算最大值
     [self calculationcMaxValue];
@@ -405,6 +409,14 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 
 - (void)separator
 {
+    for (UIView *tempView in self.subviews)
+    {
+        if ([tempView isKindOfClass:[JWXSepartorView class]])
+        {
+            [tempView removeFromSuperview];
+        }
+    }
+    
     if (self.xSeparatorHide) return;
     
     for (NSInteger i = 0; i < JW_BARCHARTS_X_SEPARTOR_NUM; i++)
