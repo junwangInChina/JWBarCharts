@@ -295,44 +295,50 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     if (self.items.count <= 0) return;
 
-    // 计算最大值
-    [self calculationcMaxValue];
-
-    // Y 轴
-    if (!self.yHide && self.yLabelTexts.count > 0)
+    if (self.items.count <= 0)
     {
-        [self.yAxis reloadYaxis];
+        [self.chartsCollectionView reloadData];
     }
-    
-    // 画柱状图
-    for (JWBarChartsItem *tempItem in self.items)
+    else
     {
-        tempItem.itemValueMax = self.yMax;
+        // 计算最大值
+        [self calculationcMaxValue];
+        
+        // Y 轴
+        if (!self.yHide && self.yLabelTexts.count > 0)
+        {
+            [self.yAxis reloadYaxis];
+        }
+        
+        // 画柱状图
+        for (JWBarChartsItem *tempItem in self.items)
+        {
+            tempItem.itemValueMax = self.yMax;
+        }
+        
+        [self.chartsCollectionView reloadData];
+        
+        // X轴
+        self.xAxis.hidden = self.xHide;
+        
+        // Y轴Size调整
+        if (!self.yHide && self.yLabelTexts.count > 0)
+        {
+            [self bringSubviewToFront:self.yAxis];
+        }
+        JW_BC_WS(this)
+        [self.yAxis mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo((!this.yHide && this.yLabelTexts.count > 0) ? JW_BARCHARTS_YAXIS_WIDTH : 0);
+        }];
+        // 通知页面，重新计算size
+        [self layoutIfNeeded];
+        // 自动滚动到最后
+        [self.chartsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(self.items.count-1)
+                                                                              inSection:0]
+                                          atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                                  animated:YES];
+        self.swipeCallback = NO;
     }
-    
-    [self.chartsCollectionView reloadData];
-    
-    // X轴
-    self.xAxis.hidden = self.xHide;
-    
-    // Y轴Size调整
-    if (!self.yHide && self.yLabelTexts.count > 0)
-    {
-        [self bringSubviewToFront:self.yAxis];
-    }
-    JW_BC_WS(this)
-    [self.yAxis mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo((!this.yHide && this.yLabelTexts.count > 0) ? JW_BARCHARTS_YAXIS_WIDTH : 0);
-    }];
-    // 通知页面，重新计算size
-    [self layoutIfNeeded];
-    // 自动滚动到最后
-    [self.chartsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(self.items.count-1)
-                                                                          inSection:0]
-                                      atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                              animated:YES];
-    self.swipeCallback = NO;
-    
 }
 
 - (void)scrollToBar:(NSInteger)index
