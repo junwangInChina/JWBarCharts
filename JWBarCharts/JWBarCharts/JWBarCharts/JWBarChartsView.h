@@ -13,6 +13,7 @@
 @interface JWBarChartsView : UIView
 
 @property (nonatomic, assign) CGFloat yMax;
+@property (nonatomic, assign) CGFloat yMaxScale;         // default 1.1
 @property (nonatomic, assign) NSInteger yMin;            // default 0
 @property (nonatomic, strong) NSArray *yLabelTexts;
 @property (nonatomic, strong) UIFont *yLabelTextFont;    // default Arial 13

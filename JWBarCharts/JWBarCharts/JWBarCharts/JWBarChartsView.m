@@ -47,6 +47,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 - (void)configDefaultProperty
 {
     self.yMin = 0;
+    self.yMaxScale = 1.1;
     self.yHide = NO;
     self.yLabelTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.yLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
@@ -371,7 +372,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     {
         [tempArray addObject:@(tempItem.itemValuesSum)];
     }
-    CGFloat tempMax = [[tempArray valueForKeyPath:@"@max.floatValue"] floatValue];
+    CGFloat tempMax = [[tempArray valueForKeyPath:@"@max.floatValue"] floatValue] * self.yMaxScale;
     self.yMax = (self.yMax > tempMax) ? self.yMax : tempMax;
 }
 
