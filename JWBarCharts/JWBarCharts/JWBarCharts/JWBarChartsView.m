@@ -293,8 +293,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 #pragma mark - Public Method
 - (void)reloadCharts
 {
-    if (self.items.count <= 0) return;
-
     if (self.items.count <= 0)
     {
         [self.chartsCollectionView reloadData];
