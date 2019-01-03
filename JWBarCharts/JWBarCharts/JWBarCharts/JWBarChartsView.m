@@ -28,6 +28,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 @property (nonatomic, strong) UIView *xAxis;
 @property (nonatomic, strong) UICollectionView *chartsCollectionView;
 @property (nonatomic, assign) NSInteger firstBarIndex;
+@property (nonatomic, strong) UILabel *emptyLabel;
 
 @property (nonatomic, assign) BOOL swipeCallback;
 
@@ -68,6 +69,10 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     
     self.marginTop = 0;
     self.marginBottom = 0;
+    
+    self.emptyTextFont = [UIFont fontWithName:@"Arial" size:13];
+    self.emptyTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+    self.emptyText = @"暂无数据";
 }
 
 - (void)setYMax:(CGFloat)yMax
@@ -150,6 +155,20 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     _xSeparatorColor = xSeparatorColor;
     
     self.xSepartorView.separtorColor = xSeparatorColor;
+}
+
+- (void)setEmptyTextColor:(UIColor *)emptyTextColor
+{
+    _emptyTextColor = emptyTextColor;
+    
+    self.emptyLabel.textColor = emptyTextColor;
+}
+
+- (void)setEmptyTextFont:(UIFont *)emptyTextFont
+{
+    _emptyTextFont = emptyTextFont;
+    
+    self.emptyLabel.font = emptyTextFont;
 }
 
 #pragma mark - Lazy loading
@@ -258,6 +277,26 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     return _chartsCollectionView;
 }
 
+- (UILabel *)emptyLabel
+{
+    if (!_emptyLabel)
+    {
+        self.emptyLabel = [UILabel new];
+        _emptyLabel.backgroundColor = self.backgroundColor;
+        _emptyLabel.textColor = self.emptyTextColor;
+        _emptyLabel.font = self.emptyTextFont;
+        _emptyLabel.text = self.emptyText;
+        _emptyLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_emptyLabel];
+        
+        JW_BC_WS(this)
+        [self.emptyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(this);
+        }];
+    }
+    return _emptyLabel;
+}
+
 #pragma mark - UICollectionView Delegate & Datasource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -330,9 +369,14 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     if (self.items.count <= 0)
     {
         [self.chartsCollectionView reloadData];
+        
+        self.emptyLabel.text = self.emptyText;
+        self.emptyLabel.hidden = NO;
     }
     else
     {
+        self.emptyLabel.hidden = YES;
+
         // 计算最大值
         [self calculationcMaxValue];
         

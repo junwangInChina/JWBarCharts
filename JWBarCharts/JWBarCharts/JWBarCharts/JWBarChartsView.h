@@ -35,6 +35,10 @@
 @property (nonatomic, assign) CGFloat marginTop;          // default 0
 @property (nonatomic, assign) CGFloat marginBottom;       // default 0
 
+@property (nonatomic, strong) UIFont *emptyTextFont;        // default Arial 13
+@property (nonatomic, strong) UIColor *emptyTextColor;      // default #333333
+@property (nonatomic, copy) NSString *emptyText;            // default 暂无数据
+
 @property (nonatomic, strong) NSArray *items;
 
 @property (nonatomic, copy) void(^barTouch)(NSInteger touchIndex, JWBarChartsItem *item);
