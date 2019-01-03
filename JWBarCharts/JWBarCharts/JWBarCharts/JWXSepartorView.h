@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) UIColor *separtorColor;
 
+- (void)drawSepartorLine;
+
 @end

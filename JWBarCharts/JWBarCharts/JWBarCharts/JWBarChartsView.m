@@ -23,6 +23,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 @interface JWBarChartsView() <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) JWYAxisView *yAxis;
+@property (nonatomic, strong) JWXSepartorView *xSepartorView;
 @property (nonatomic, strong) JWMaskView *maskView;
 @property (nonatomic, strong) UIView *xAxis;
 @property (nonatomic, strong) UICollectionView *chartsCollectionView;
@@ -47,7 +48,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 - (void)configDefaultProperty
 {
     self.yMin = 0;
-    self.yMaxScale = 1.1;
     self.yHide = NO;
     self.yLabelTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.yLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
@@ -65,6 +65,9 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.maskTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.maskHide = YES;
     self.maskView.hidden = YES;
+    
+    self.marginTop = 0;
+    self.marginBottom = 0;
 }
 
 - (void)setYMax:(CGFloat)yMax
@@ -139,7 +142,14 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     _xSeparatorHide = xSeparatorHide;
     
-    [self separator];
+    self.xSepartorView.hidden = xSeparatorHide;
+}
+
+- (void)setXSeparatorColor:(UIColor *)xSeparatorColor
+{
+    _xSeparatorColor = xSeparatorColor;
+    
+    self.xSepartorView.separtorColor = xSeparatorColor;
 }
 
 #pragma mark - Lazy loading
@@ -153,12 +163,33 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         
         JW_BC_WS(this)
         [self.yAxis mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.equalTo(this);
-            make.bottom.equalTo(this).with.offset(JW_BARCHARTS_YAXIS_OUT);
+            make.left.equalTo(this);
+            make.top.equalTo(this).with.offset(self.marginTop);
+            make.bottom.equalTo(this).with.offset(-self.marginBottom+JW_BARCHARTS_YAXIS_OUT);
+//            make.bottom.equalTo(this).with.offset(JW_BARCHARTS_YAXIS_OUT);
             make.width.mas_equalTo(JW_BARCHARTS_YAXIS_WIDTH);
         }];
     }
     return _yAxis;
+}
+
+- (JWXSepartorView *)xSepartorView
+{
+    if (!_xSepartorView)
+    {
+        self.xSepartorView = [JWXSepartorView new];
+        _xSepartorView.backgroundColor = self.backgroundColor;
+        [self addSubview:_xSepartorView];
+        
+        JW_BC_WS(this)
+        [self.xSepartorView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(this);
+            make.left.equalTo(this.yAxis.mas_right);
+            make.top.equalTo(this).with.offset(self.marginTop);
+            make.bottom.equalTo(this).with.offset(-self.marginBottom+JW_BARCHARTS_YAXIS_OUT);
+        }];
+    }
+    return _xSepartorView;
 }
 
 - (UIView *)xAxis
@@ -218,8 +249,10 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         
         JW_BC_WS(this)
         [self.chartsCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(this).with.offset(self.marginTop);
+            make.bottom.equalTo(this).with.offset(-self.marginBottom);
             make.left.equalTo(this.yAxis.mas_right);
-            make.top.bottom.right.equalTo(this);
+            make.right.equalTo(this);
         }];
     }
     return _chartsCollectionView;
@@ -234,7 +267,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake((JW_BARCHARTS_SCREEN_WIDTH - (!self.yHide && self.yLabelTexts.count > 0 ? JW_BARCHARTS_YAXIS_WIDTH : 0))/7.0,
-                      CGRectGetHeight(self.frame));
+                      CGRectGetHeight(self.frame) - self.marginTop - self.marginBottom);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -309,6 +342,12 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
             [self.yAxis reloadYaxis];
         }
         
+        // X 轴分割线
+        if (!self.xSeparatorHide)
+        {
+            [self.xSepartorView drawSepartorLine];
+        }
+        
         // 画柱状图
         for (JWBarChartsItem *tempItem in self.items)
         {
@@ -328,6 +367,16 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         JW_BC_WS(this)
         [self.yAxis mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo((!this.yHide && this.yLabelTexts.count > 0) ? JW_BARCHARTS_YAXIS_WIDTH : 0);
+            make.top.equalTo(this).with.offset(this.marginTop);
+            make.bottom.equalTo(this).with.offset(-self.marginBottom+JW_BARCHARTS_YAXIS_OUT);
+        }];
+        [self.xSepartorView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(this).with.offset(self.marginTop);
+            make.bottom.equalTo(this).with.offset(-self.marginBottom);
+        }];
+        [self.chartsCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(this).with.offset(self.marginTop);
+            make.bottom.equalTo(this).with.offset(-self.marginBottom);
         }];
         // 通知页面，重新计算size
         [self layoutIfNeeded];
@@ -372,7 +421,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     {
         [tempArray addObject:@(tempItem.itemValuesSum)];
     }
-    CGFloat tempMax = [[tempArray valueForKeyPath:@"@max.floatValue"] floatValue] * self.yMaxScale;
+    CGFloat tempMax = [[tempArray valueForKeyPath:@"@max.floatValue"] floatValue];
     self.yMax = (self.yMax > tempMax) ? self.yMax : tempMax;
 }
 
@@ -408,41 +457,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         } completion:^(BOOL finished) {
             // 显示mask
             self.maskView.hidden = self.maskHide;
-        }];
-    }
-}
-
-- (void)separator
-{
-    for (UIView *tempView in self.subviews)
-    {
-        if ([tempView isKindOfClass:[JWXSepartorView class]])
-        {
-            [tempView removeFromSuperview];
-        }
-    }
-    
-    if (self.xSeparatorHide) return;
-    
-    for (NSInteger i = 0; i < JW_BARCHARTS_X_SEPARTOR_NUM; i++)
-    {
-        JWXSepartorView *tempLineView = [[JWXSepartorView alloc] init];
-        tempLineView.separtorColor = self.xSeparatorColor;
-        [self addSubview:tempLineView];
-        
-        JW_BC_WS(this)
-        [tempLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(this);
-            make.height.mas_equalTo(1.0/JW_BARCHARTS_SCREEN_SCALE);
-            if (i == 0)
-            {
-                make.top.equalTo(this);
-            }
-            else
-            {
-                CGFloat tempM = ((i * 10/ 10.0) * 2) / ((JW_BARCHARTS_X_SEPARTOR_NUM - 1) + 1); // 2n/n+1
-                make.centerY.equalTo(this).multipliedBy(tempM);
-            }
         }];
     }
 }

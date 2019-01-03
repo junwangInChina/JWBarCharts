@@ -54,7 +54,7 @@
             }
             else
             {
-                CGFloat tempM = ((i * 10/ 10.0) * 2) / ((self.labelTexts.count - 2) + 1); // 2n/n+1
+                CGFloat tempM = ((i * 10/ 10.0) * 2) / ((self.labelTexts.count - 2) + 1); // 2i/n+1
                 make.centerY.equalTo(this).multipliedBy(tempM).with.offset(-JW_BARCHARTS_YAXIS_OUT/2.0);
             }
         }];

@@ -8,7 +8,19 @@
 
 #import "JWXSepartorView.h"
 
-@implementation JWXSepartorView
+#import "JWBarChartsDefine.h"
+#import <Masonry/Masonry.h>
+
+#pragma mark ============================================================= JWXSepartorLineView
+
+@interface JWXSepartorLineView : UIView
+
+@property (nonatomic, strong) UIColor *separtorColor;
+
+@end
+
+
+@implementation JWXSepartorLineView
 
 - (void)layoutSubviews
 {
@@ -23,7 +35,7 @@
     [tempPath moveToPoint:CGPointMake(0, 0)];
     [tempPath addLineToPoint:CGPointMake(CGRectGetWidth(self.frame), 0)];
     [tempPath setLineWidth:CGRectGetHeight(self.frame)];
-
+    
     
     CAShapeLayer *tempLayer = [CAShapeLayer layer];
     tempLayer.strokeColor = self.separtorColor.CGColor;
@@ -33,6 +45,46 @@
     tempLayer.lineDashPattern = @[@5,@5];
     [self.layer addSublayer:tempLayer];
 }
+
+@end
+
+#pragma mark ============================================================= JWXSepartorView
+
+@implementation JWXSepartorView
+
+#pragma mark - Lazy loading
+- (void)drawSepartorLine
+{
+    for (UIView *tempView in self.subviews)
+    {
+        if ([tempView isKindOfClass:[JWXSepartorLineView class]])
+        {
+            [tempView removeFromSuperview];
+        }
+    }
+    
+    JW_BC_WS(this)
+    for (NSInteger i = 0; i < JW_BARCHARTS_X_SEPARTOR_NUM; i++)
+    {
+        JWXSepartorLineView *tempLineView = [[JWXSepartorLineView alloc] init];
+        tempLineView.separtorColor = self.separtorColor;
+        [self addSubview:tempLineView];
+        [tempLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(this);
+            make.height.mas_equalTo(1.0/JW_BARCHARTS_SCREEN_SCALE);
+            if (i == 0)
+            {
+                make.top.equalTo(this);
+            }
+            else
+            {
+                CGFloat tempM = ((i * 10/ 10.0) * 2) / ((JW_BARCHARTS_X_SEPARTOR_NUM - 1) + 1); // 2i/n
+                make.centerY.equalTo(this).multipliedBy(tempM);
+            }
+        }];
+    }
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -33,25 +33,46 @@
 
 - (void)configBaseBarCharts
 {
+    __weak __typeof(&*self)this = self;
+
+    UIView *tempTopView = [UIView new];
+    tempTopView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:tempTopView];
+    [tempTopView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(this.view);
+        make.height.mas_equalTo(100);
+    }];
+    
+    
+    
     JWBarChartsView *tempBarView = [JWBarChartsView new];
     tempBarView.yMax = 24;
     tempBarView.backgroundColor = [UIColor whiteColor];
+//    tempBarView.marginTop = 100;
+//    tempBarView.marginBottom = 50;
 //    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
 //    tempBarView.maskHide = NO;
-//    tempBarView.xSeparatorHide = NO;
+    tempBarView.xSeparatorHide = NO;
     [self.view addSubview:tempBarView];
-    __weak __typeof(&*self)this = self;
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(this.view);
         make.top.equalTo(this.view).with.offset(100);
         make.height.mas_equalTo(400);
     }];
     
-    tempBarView.barTouch = ^(JWBarChartsItem *item) {
-        //NSLog(@"点击了 %@:",item.itemXaisText);
+    UIView *tempBottomView = [UIView new];
+    tempBottomView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:tempBottomView];
+    [tempBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(this.view);
+        make.top.equalTo(this.view).with.offset(500);
+    }];
+    
+    tempBarView.barTouch = ^(NSInteger touchIndex, JWBarChartsItem *item) {
+        
     };
-    tempBarView.barDidScroll = ^(JWBarChartsItem *leftItem, JWBarChartsItem *rightItem) {
-        //NSLog(@"滑动到 %@:",leftItem.itemXaisText);
+    tempBarView.barDidScroll = ^(NSInteger leftIndex, JWBarChartsItem *leftItem, NSInteger rightIndex, JWBarChartsItem *rightItem) {
+        
     };
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
