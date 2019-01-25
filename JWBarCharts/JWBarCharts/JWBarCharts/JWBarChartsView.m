@@ -50,6 +50,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     self.yMin = 0;
     self.yHide = NO;
+    self.yLabelCount = 5;
     self.yLabelTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.yLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.yAxisColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
@@ -381,7 +382,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         [self calculationcMaxValue];
         
         // Y 轴
-        if (!self.yHide && self.yLabelTexts.count > 0)
+        if (!self.yHide)
         {
             [self.yAxis reloadYaxis];
         }
@@ -467,6 +468,17 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     }
     CGFloat tempMax = [[tempArray valueForKeyPath:@"@max.floatValue"] floatValue];
     self.yMax = (self.yMax > tempMax) ? self.yMax : tempMax;
+    
+    if (self.yLabelTexts.count > 0) return;
+    if (self.yLabelCount <= 2) return;
+    
+    NSMutableArray *tempYArray = [NSMutableArray array];
+    for (NSInteger i = 0; i < self.yLabelCount; i++)
+    {
+        [tempYArray addObject:[NSString stringWithFormat:@"%.0f",((i*10.0)/((self.yLabelCount-1)*10.0)) * self.yMax]];
+    }
+    self.yLabelTexts = tempYArray;
+    self.yAxis.labelTexts = tempYArray;
 }
 
 - (void)barDidSeleted:(NSIndexPath *)indexPath

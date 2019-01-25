@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) CGFloat yMax;
 @property (nonatomic, assign) NSInteger yMin;            // default 0
+@property (nonatomic, assign) NSInteger yLabelCount;      // default is 5
 @property (nonatomic, strong) NSArray *yLabelTexts;
 @property (nonatomic, strong) UIFont *yLabelTextFont;    // default Arial 13
 @property (nonatomic, strong) UIColor *yLabelTextColor;  // default #333333
