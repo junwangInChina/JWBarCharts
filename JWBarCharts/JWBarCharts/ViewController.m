@@ -48,10 +48,10 @@
     JWBarChartsView *tempBarView = [JWBarChartsView new];
     tempBarView.yMax = 24;
     tempBarView.backgroundColor = [UIColor whiteColor];
-//    tempBarView.marginTop = 100;
-//    tempBarView.marginBottom = 50;
+    tempBarView.marginTop = 10;
+    tempBarView.marginBottom = 10;
 //    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
-//    tempBarView.maskHide = NO;
+    tempBarView.maskHide = NO;
     tempBarView.xSeparatorHide = NO;
     [self.view addSubview:tempBarView];
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -142,10 +142,11 @@
         [tempArray addObject:tempItem9];
         
         JWBarChartsItem *tempItem10 = [JWBarChartsItem new];
-        tempItem10.itemValues = @[@(15),@(3)];
+        tempItem10.itemValues = @[@(15),@(9)];
         tempItem10.itemBackgroundColors = @[[UIColor colorWithRed:155.0/255.0 green:156.0/255.0 blue:170.0/255.0 alpha:0.8],[UIColor colorWithRed:255.0/255.0 green:137.0/255.0 blue:1.0/255.0 alpha:1.0]];
         tempItem10.itemXaisText = @"08-10";
-        tempItem10.itemValueLabelText = @"18时";
+        tempItem10.itemValueLabelText = @"24时";
+        tempItem10.itemMaskText = @"总时间24时\r\n开机15时\r\n关机9时";
         [tempArray addObject:tempItem10];
         
         JWBarChartsItem *tempItem11 = [JWBarChartsItem new];
@@ -160,6 +161,7 @@
         tempItem12.itemBackgroundColors = @[[UIColor colorWithRed:155.0/255.0 green:156.0/255.0 blue:170.0/255.0 alpha:0.8],[UIColor colorWithRed:255.0/255.0 green:137.0/255.0 blue:1.0/255.0 alpha:1.0]];
         tempItem12.itemXaisText = @"08-12";
         tempItem12.itemValueLabelText = @"4时";
+        tempItem12.itemMaskText = @"总时间4时\r\n开机1时\r\n关机3时";
         [tempArray addObject:tempItem12];
         
         dispatch_async(dispatch_get_main_queue(), ^{

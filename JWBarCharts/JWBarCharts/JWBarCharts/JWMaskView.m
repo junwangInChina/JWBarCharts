@@ -27,6 +27,7 @@
         self.maskLabel = [UILabel new];
         _maskLabel.backgroundColor = [UIColor clearColor];
         _maskLabel.textAlignment = NSTextAlignmentCenter;
+        _maskLabel.numberOfLines = 0;
         [self addSubview:_maskLabel];
         
         JW_BC_WS(this)

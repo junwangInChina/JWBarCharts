@@ -501,18 +501,19 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         // 计算
         CGFloat tempCenterX = tempRectInSuper.origin.x + tempRectInSuper.size.width / 2.0;
         CGFloat tempMultiplie = (tempCenterX / (CGRectGetWidth(self.frame) <= 0 ? JW_BARCHARTS_SCREEN_WIDTH : CGRectGetWidth(self.frame))) * 2;
-        CGFloat tempY = tempRectInSuper.size.height * tempItem.itemMultiplied + 5;
+        CGFloat tempY = tempRectInSuper.size.height * tempItem.itemMultiplied + 5 + self.marginBottom;
         // 刷新位置
         JW_BC_WS(this)
         [UIView animateWithDuration:0.3 animations:^{
             [self.maskView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.center.equalTo(this).with.multipliedBy(tempMultiplie);
+                make.centerX.equalTo(this).with.multipliedBy(tempMultiplie);
                 make.bottom.equalTo(this).with.offset(-tempY);
             }];
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
             // 显示mask
             self.maskView.hidden = self.maskHide;
+            [self bringSubviewToFront:self.maskView];
         }];
     }
 }
