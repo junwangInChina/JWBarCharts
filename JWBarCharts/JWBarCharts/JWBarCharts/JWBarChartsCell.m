@@ -98,6 +98,7 @@
         self.valueLabel = [UILabel new];
         _valueLabel.backgroundColor = [UIColor clearColor];
         _valueLabel.textAlignment = NSTextAlignmentCenter;
+        _valueLabel.numberOfLines = 0;
         [self addSubview:_valueLabel];
         
         JW_BC_WS(this)
@@ -136,6 +137,7 @@
     self.valueLabel.textColor = item.itemValueLabelTextColor;
     self.valueLabel.font = item.itemValueLabelFont;
     self.valueLabel.text = item.itemValueLabelText;
+    self.valueLabel.textAlignment = (item.itemValueLabelWidth > CGRectGetWidth(self.frame)) ? NSTextAlignmentLeft : NSTextAlignmentCenter;
     
     self.xAxisLabel.textColor = item.itemXaisLabelTextColor;
     self.xAxisLabel.font = item.itemXaisLabelFont;
@@ -144,7 +146,7 @@
     self.barView.values = item.itemValues;
     self.barView.colors = item.itemBackgroundColors;
     [self.barView reloadChartLine];
-
+    
     JW_BC_WS(this)
     [self.barView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.centerX.equalTo(this);
@@ -152,6 +154,8 @@
         make.height.equalTo(this).with.multipliedBy(item.itemMultiplied);
     }];
 }
+
+
 
 @end
 

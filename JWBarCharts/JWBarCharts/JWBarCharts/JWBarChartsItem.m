@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign, readwrite) CGFloat itemValuesSum;
 @property (nonatomic, assign, readwrite) CGFloat itemMultiplied;
+@property (nonatomic, assign, readwrite) CGFloat itemValueLabelWidth;
 
 @end
 
@@ -52,9 +53,32 @@
 {
     _itemValueLabelText = itemValueLabelText;
     
+    [self calculationLableValueWidth];
+
     if (self.itemMaskText.length <= 0)
     {
         self.itemMaskText = itemValueLabelText;
+    }
+}
+
+- (void)setItemValueLabelFont:(UIFont *)itemValueLabelFont
+{
+    _itemValueLabelFont = itemValueLabelFont;
+    
+    [self calculationLableValueWidth];
+}
+
+- (void)calculationLableValueWidth
+{
+    if (self.itemValueLabelText.length > 0 && self.itemValueLabelFont != nil)
+    {
+        NSDictionary *tempAttrs = @{NSFontAttributeName:self.itemValueLabelFont};
+        
+        CGSize tempSize = [self.itemValueLabelText boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+                                                                options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                             attributes:tempAttrs
+                                                                context:nil].size;
+        self.itemValueLabelWidth = tempSize.width;
     }
 }
 

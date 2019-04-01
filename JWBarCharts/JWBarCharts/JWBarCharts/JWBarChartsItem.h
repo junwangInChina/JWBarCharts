@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign, readonly) CGFloat itemValuesSum;
 @property (nonatomic, assign, readonly) CGFloat itemMultiplied;
+@property (nonatomic, assign, readonly) CGFloat itemValueLabelWidth;
 
 @property (nonatomic, assign) CGFloat itemValueMax;
 @property (nonatomic, strong) NSArray *itemValues;
