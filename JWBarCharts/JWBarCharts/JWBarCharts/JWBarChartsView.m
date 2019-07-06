@@ -379,13 +379,14 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     }
     else
     {
+        self.maskView.hidden = YES;
         self.emptyLabel.hidden = YES;
 
         // 计算最大值
         [self calculationcMaxValue];
         
         // Y 轴
-        self.yAxis.hidden = !self.yHide;
+        self.yAxis.hidden = self.yHide;
         if (!self.yHide)
         {
             [self.yAxis reloadYaxis];
