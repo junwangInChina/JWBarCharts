@@ -53,6 +53,7 @@
 //    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
     tempBarView.maskHide = NO;
     tempBarView.xSeparatorHide = NO;
+    tempBarView.maskTextAlignment = NSTextAlignmentLeft;
     [self.view addSubview:tempBarView];
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(this.view);

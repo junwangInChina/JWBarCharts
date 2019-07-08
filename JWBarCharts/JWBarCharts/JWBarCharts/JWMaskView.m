@@ -53,6 +53,13 @@
     self.maskLabel.textColor = maskTextColor;
 }
 
+- (void)setMaskTextAlignment:(NSTextAlignment)maskTextAlignment
+{
+    _maskTextAlignment = maskTextAlignment;
+    
+    self.maskLabel.textAlignment = maskTextAlignment;
+}
+
 #pragma mark - Public Method
 - (void)reload:(NSString *)text
 {

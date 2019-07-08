@@ -65,6 +65,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     
     self.maskTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.maskTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+    self.maskTextAlignment = NSTextAlignmentCenter;
     self.maskHide = YES;
     self.maskView.hidden = YES;
     
@@ -142,6 +143,13 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     _maskHide = maskHide;
     
     self.maskView.hidden = maskHide;
+}
+
+- (void)setMaskTextAlignment:(NSTextAlignment)maskTextAlignment
+{
+    _maskTextAlignment = maskTextAlignment;
+    
+    self.maskView.maskTextAlignment = maskTextAlignment;
 }
 
 - (void)setXSeparatorHide:(BOOL)xSeparatorHide

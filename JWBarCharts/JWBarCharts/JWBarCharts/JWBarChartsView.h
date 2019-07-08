@@ -31,6 +31,7 @@
 
 @property (nonatomic, strong) UIFont *maskTextFont;       // default Arial 13
 @property (nonatomic, strong) UIColor *maskTextColor;     // default #333333
+@property (nonatomic, assign) NSTextAlignment maskTextAlignment; // default NSTextAlignmentCenter
 @property (nonatomic, assign) BOOL maskHide;              // default YES
 
 @property (nonatomic, assign) CGFloat marginTop;          // default 0

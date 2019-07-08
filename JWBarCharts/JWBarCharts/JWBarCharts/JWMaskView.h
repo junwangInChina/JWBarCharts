@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UIFont *maskFont;
 @property (nonatomic, strong) UIColor *maskTextColor;
+@property (nonatomic, assign) NSTextAlignment maskTextAlignment;
 
 - (void)reload:(NSString *)text;
 
