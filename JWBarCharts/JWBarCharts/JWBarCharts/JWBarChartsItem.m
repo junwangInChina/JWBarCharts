@@ -11,7 +11,9 @@
 @interface JWBarChartsItem ()
 
 @property (nonatomic, assign, readwrite) CGFloat itemValuesSum;
+@property (nonatomic, assign, readwrite) CGFloat itemValuesMax;
 @property (nonatomic, assign, readwrite) CGFloat itemMultiplied;
+@property (nonatomic, strong, readwrite) NSArray *itemMultipliedArray;
 @property (nonatomic, assign, readwrite) CGFloat itemValueLabelWidth;
 
 @end
@@ -30,6 +32,8 @@
         
         self.itemMaskLabelFont = [UIFont fontWithName:@"Arial" size:13];
         self.itemMaskLabelTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+        
+        self.itemIsStacking = YES;
     }
     return self;
 }
@@ -38,15 +42,43 @@
 {
     _itemValues = itemValues;
     
-    NSNumber *sum = [itemValues valueForKeyPath:@"@sum.floatValue"];
-    self.itemValuesSum = [sum floatValue];
+//    if (self.itemIsStacking)
+//    {
+//        NSNumber *sum = [itemValues valueForKeyPath:@"@sum.floatValue"];
+//        self.itemValuesSum = [sum floatValue];
+//    }
+//    else
+//    {
+//        NSNumber *max = [itemValues valueForKeyPath:@"@max.floatValue"];
+//        self.itemValuesSum = [max floatValue];
+//    }
 }
 
 - (void)setItemValueMax:(CGFloat)itemValueMax
 {
     _itemValueMax = itemValueMax;
     
+    if (self.itemIsStacking)
+    {
+        NSNumber *sum = [self.itemValues valueForKeyPath:@"@sum.floatValue"];
+        self.itemValuesSum = [sum floatValue];
+    }
+    else
+    {
+        NSNumber *max = [self.itemValues valueForKeyPath:@"@max.floatValue"];
+        self.itemValuesSum = [max floatValue];
+    }
+    
     self.itemMultiplied = itemValueMax == 0 ? 0 : self.itemValuesSum / self.itemValueMax;
+    
+    NSMutableArray *tempArray = [NSMutableArray array];
+    for (NSInteger i = 0; i < self.itemValues.count; i++)
+    {
+        CGFloat tempValue = [self.itemValues[i] floatValue];
+        CGFloat tempMulti = self.itemValuesSum == 0 ? 0 : tempValue / self.itemValuesSum;
+        [tempArray addObject:@(tempMulti)];
+    }
+    self.itemMultipliedArray = tempArray;
 }
 
 - (void)setItemValueLabelText:(NSString *)itemValueLabelText

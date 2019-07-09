@@ -48,6 +48,10 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 
 - (void)configDefaultProperty
 {
+    self.barType = JWBarChartsBarTypeStacking;
+    
+    self.barWidthMultiplied = 0.5;
+    
     self.yMin = 0;
     self.yHide = NO;
     self.yLabelCount = 5;
@@ -410,6 +414,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         for (JWBarChartsItem *tempItem in self.items)
         {
             tempItem.itemValueMax = self.yMax;
+            tempItem.itemWidthMultiplied = self.barWidthMultiplied;
         }
         
         [self.chartsCollectionView reloadData];
@@ -477,6 +482,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     NSMutableArray *tempArray = [NSMutableArray array];
     for (JWBarChartsItem *tempItem in self.items)
     {
+        tempItem.itemIsStacking = (self.barType == JWBarChartsBarTypeStacking);
         [tempArray addObject:@(tempItem.itemValuesSum)];
     }
     CGFloat tempMax = [[tempArray valueForKeyPath:@"@max.floatValue"] floatValue];

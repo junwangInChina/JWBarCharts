@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) NSArray *values;
 @property (nonatomic, strong) NSArray *colors;
+@property (nonatomic, strong) NSArray *multiplieds;
+@property (nonatomic, assign) BOOL isStacking;
 
 @end
 
@@ -31,8 +33,6 @@
     
     UIColor *tempColor = self.colors.count > 0 ? [self.colors firstObject] : [UIColor colorWithRed:155.0/255.0 green:156.0/255.0 blue:170.0/255.0 alpha:0.8];
     MAS_VIEW *preView;
-    CGFloat tempMax = [[self.values valueForKeyPath:@"@sum.floatValue"] floatValue];
-    CGFloat tempMultipli = 0;
     JW_BC_WS(this)
     for (NSInteger i = 0; i < self.values.count; i++)
     {
@@ -40,22 +40,41 @@
         {
             tempColor = self.colors[i];
         }
-        tempMultipli = tempMax == 0 ? 0 : [self.values[i] floatValue] / tempMax;
         
         UIView *tempView = [UIView new];
         tempView.backgroundColor = tempColor;
         [self addSubview:tempView];
         [tempView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(this);
-            make.height.mas_equalTo(this).with.multipliedBy(tempMultipli);
-            if (preView)
+            
+            if (self.isStacking)
             {
-                make.bottom.equalTo(preView.mas_top);
+                make.left.right.equalTo(this);
+                make.height.mas_equalTo(this).with.multipliedBy([self.multiplieds[i] floatValue]);
+                if (preView)
+                {
+                    make.bottom.equalTo(preView.mas_top);
+                }
+                else
+                {
+                    make.bottom.equalTo(this);
+                }
             }
             else
             {
                 make.bottom.equalTo(this);
+                make.height.mas_equalTo(this).with.multipliedBy([self.multiplieds[i] floatValue]);
+                make.width.mas_equalTo(this).with.multipliedBy(1.0/self.values.count);
+                if (preView)
+                {
+                    make.left.equalTo(preView.mas_right);
+                }
+                else
+                {
+                    make.left.equalTo(this);
+
+                }
             }
+            
         }];
         preView = tempView;
     }
@@ -145,12 +164,14 @@
     
     self.barView.values = item.itemValues;
     self.barView.colors = item.itemBackgroundColors;
+    self.barView.multiplieds = item.itemMultipliedArray;
+    self.barView.isStacking = item.itemIsStacking;
     [self.barView reloadChartLine];
     
     JW_BC_WS(this)
     [self.barView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.centerX.equalTo(this);
-        make.width.equalTo(this).with.multipliedBy(0.5);
+        make.width.equalTo(this).with.multipliedBy(item.itemWidthMultiplied);
         make.height.equalTo(this).with.multipliedBy(item.itemMultiplied);
     }];
 }

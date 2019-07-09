@@ -10,7 +10,14 @@
 
 @class JWBarChartsItem;
 
+typedef NS_ENUM(NSInteger, JWBarChartsBarType) {
+    JWBarChartsBarTypeStacking = 0,         /* 多根柱子堆成一根 */
+    JWBarChartsBarTypeJuxtaposition,        /* 多根柱子横向排列 */
+};
+
 @interface JWBarChartsView : UIView
+
+@property (nonatomic, assign) JWBarChartsBarType barType;   // default is JWBarChartsBarTypeStacking
 
 @property (nonatomic, assign) CGFloat yMax;
 @property (nonatomic, assign) NSInteger yMin;            // default 0
@@ -20,6 +27,8 @@
 @property (nonatomic, strong) UIColor *yLabelTextColor;  // default #333333
 @property (nonatomic, strong) UIColor *yAxisColor;       // default #333333
 @property (nonatomic, assign) BOOL yHide;                // default NO
+
+@property (nonatomic, assign) CGFloat barWidthMultiplied;   // default is 0.5
 
 @property (nonatomic, strong) UIFont *xLabelTextFont;       // default Arial 13
 @property (nonatomic, strong) UIColor *xLabelTextColor;     // default #333333

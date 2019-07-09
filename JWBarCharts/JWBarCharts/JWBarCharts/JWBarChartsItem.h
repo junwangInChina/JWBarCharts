@@ -10,8 +10,10 @@
 
 @interface JWBarChartsItem : NSObject
 
-@property (nonatomic, assign, readonly) CGFloat itemValuesSum;
-@property (nonatomic, assign, readonly) CGFloat itemMultiplied;
+@property (nonatomic, assign, readonly) CGFloat itemValuesSum;          // 柱子堆叠时，需要知道所有总柱子高度
+@property (nonatomic, assign, readonly) CGFloat itemMultiplied;         // 柱子堆叠时，需要知道所有总柱子高度比例
+@property (nonatomic, assign, readonly) CGFloat itemValuesMax;          // 柱子横向并列时，需要知道最高的一根柱子
+@property (nonatomic, strong, readonly) NSArray *itemMultipliedArray;   // 柱子横向并列时，需要知道每根柱子的高度比例
 @property (nonatomic, assign, readonly) CGFloat itemValueLabelWidth;
 
 @property (nonatomic, assign) CGFloat itemValueMax;
@@ -31,4 +33,9 @@
 @property (nonatomic, copy) NSString *itemMaskText;                 // default itemValueLabelText
 @property (nonatomic, strong) UIFont *itemMaskLabelFont;            // default Arial 13
 @property (nonatomic, strong) UIColor *itemMaskLabelTextColor;      // default #333333
+
+@property (nonatomic, assign) CGFloat itemWidthMultiplied;
+
+@property (nonatomic, assign) CGFloat itemIsStacking;               // 柱子是否堆叠
+
 @end
