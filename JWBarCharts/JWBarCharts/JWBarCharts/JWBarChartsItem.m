@@ -54,9 +54,9 @@
 //    }
 }
 
-- (void)setItemValueMax:(CGFloat)itemValueMax
+- (void)setItemIsStacking:(CGFloat)itemIsStacking
 {
-    _itemValueMax = itemValueMax;
+    _itemIsStacking = itemIsStacking;
     
     if (self.itemIsStacking)
     {
@@ -68,6 +68,11 @@
         NSNumber *max = [self.itemValues valueForKeyPath:@"@max.floatValue"];
         self.itemValuesSum = [max floatValue];
     }
+}
+
+- (void)setItemValueMax:(CGFloat)itemValueMax
+{
+    _itemValueMax = itemValueMax;
     
     self.itemMultiplied = itemValueMax == 0 ? 0 : self.itemValuesSum / self.itemValueMax;
     
