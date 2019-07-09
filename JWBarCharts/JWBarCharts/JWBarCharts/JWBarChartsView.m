@@ -295,7 +295,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     if (!_emptyLabel)
     {
         self.emptyLabel = [UILabel new];
-        _emptyLabel.backgroundColor = self.backgroundColor;
+        _emptyLabel.backgroundColor = [UIColor clearColor];
         _emptyLabel.textColor = self.emptyTextColor;
         _emptyLabel.font = self.emptyTextFont;
         _emptyLabel.text = self.emptyText;
@@ -388,6 +388,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         
         self.yAxis.hidden = YES;
         self.maskView.hidden = YES;
+        
+        self.xSepartorView.hidden = YES;
     }
     else
     {
@@ -405,6 +407,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         }
         
         // X 轴分割线
+        self.xSepartorView.hidden = self.xSeparatorHide;
         if (!self.xSeparatorHide)
         {
             [self.xSepartorView drawSepartorLine];
