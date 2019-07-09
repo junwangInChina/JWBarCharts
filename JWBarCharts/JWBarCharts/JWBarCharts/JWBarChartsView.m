@@ -390,6 +390,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         self.maskView.hidden = YES;
         
         self.xSepartorView.hidden = YES;
+        
+        self.xAxis.hidden = YES;
     }
     else
     {
