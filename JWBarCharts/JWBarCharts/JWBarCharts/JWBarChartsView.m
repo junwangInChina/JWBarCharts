@@ -398,6 +398,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         self.xSepartorView.hidden = YES;
         
         self.xAxis.hidden = YES;
+        
+        self.chartsSelectedIndex = kDefaultSelectedIndex;
     }
     else
     {
