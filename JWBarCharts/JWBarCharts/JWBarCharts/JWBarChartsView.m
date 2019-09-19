@@ -530,7 +530,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         [self.chartsCollectionView reloadItemsAtIndexPaths:tempIndexPathArray];
     }
     
-    if (!self.maskHide)
+    if (!self.maskHide || self.barItemMinX)
     {
         JWBarChartsItem *tempItem = self.items[indexPath.row];
 
@@ -540,29 +540,34 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         CGRect tempRectInChart = [self.chartsCollectionView convertRect:tempCell.frame toView:self.chartsCollectionView];
         // 获取选中cell在外层view上的相对坐标
         CGRect tempRectInSuper = [self.chartsCollectionView convertRect:tempRectInChart toView:self];
-        // 刷新内容
-        self.maskView.maskFont = tempItem.itemMaskLabelFont;
-        self.maskView.maskTextColor = tempItem.itemMaskLabelTextColor;
-        [self.maskView reload:tempItem.itemMaskText];
         
         // 计算
         CGFloat tempCenterX = tempRectInSuper.origin.x + tempRectInSuper.size.width / 2.0;
         CGFloat tempMultiplie = (tempCenterX / (CGRectGetWidth(self.frame) <= 0 ? JW_BARCHARTS_SCREEN_WIDTH : CGRectGetWidth(self.frame))) * 2;
         CGFloat tempY = tempRectInSuper.size.height * tempItem.itemMultiplied + 5 + self.marginBottom;
-        // 刷新位置
-        JW_BC_WS(this)
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.maskView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(this).with.multipliedBy(tempMultiplie);
-                make.bottom.equalTo(this).with.offset(-tempY);
-            }];
-            [self layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            // 显示mask
-            self.maskView.hidden = self.maskHide;
-            [self bringSubviewToFront:self.maskView];
-        }];
         
+        if (!self.maskHide)
+        {
+            // 刷新内容
+            self.maskView.maskFont = tempItem.itemMaskLabelFont;
+            self.maskView.maskTextColor = tempItem.itemMaskLabelTextColor;
+            [self.maskView reload:tempItem.itemMaskText];
+            
+            // 刷新位置
+            JW_BC_WS(this)
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.maskView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(this).with.multipliedBy(tempMultiplie);
+                    make.bottom.equalTo(this).with.offset(-tempY);
+                }];
+                [self layoutIfNeeded];
+            } completion:^(BOOL finished) {
+                // 显示mask
+                self.maskView.hidden = self.maskHide;
+                [self bringSubviewToFront:self.maskView];
+            }];
+        }
+                
         !self.barItemMinX?:self.barItemMinX(tempCenterX);
     }
 }
