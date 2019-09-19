@@ -50,10 +50,13 @@ typedef NS_ENUM(NSInteger, JWBarChartsBarType) {
 @property (nonatomic, strong) UIColor *emptyTextColor;      // default #333333
 @property (nonatomic, copy) NSString *emptyText;            // default 暂无数据
 
+@property (nonatomic, assign) BOOL chartOpenItemSelected;        // 是否开启选中功能，默认不开启
+
 @property (nonatomic, strong) NSArray *items;
 
 @property (nonatomic, copy) void(^barTouch)(NSInteger touchIndex, JWBarChartsItem *item);
 @property (nonatomic, copy) void(^barDidScroll)(NSInteger leftIndex, JWBarChartsItem *leftItem,NSInteger rightIndex, JWBarChartsItem *rightItem);
+@property (nonatomic, copy) void(^barItemMinX)(CGFloat x);
 
 - (void)reloadCharts;
 

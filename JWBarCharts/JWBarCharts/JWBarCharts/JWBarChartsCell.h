@@ -12,6 +12,6 @@
 
 @interface JWBarChartsCell : UICollectionViewCell
 
-- (void)configItem:(JWBarChartsItem *)item;
+- (void)configItem:(JWBarChartsItem *)item selected:(BOOL)selected;
 
 @end

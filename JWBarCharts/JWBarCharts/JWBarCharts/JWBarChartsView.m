@@ -18,6 +18,7 @@
 
 #import <Masonry/Masonry.h>
 
+static NSInteger const kDefaultSelectedIndex = 10098;
 static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier";
 
 @interface JWBarChartsView() <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -31,6 +32,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 @property (nonatomic, strong) UILabel *emptyLabel;
 
 @property (nonatomic, assign) BOOL swipeCallback;
+@property (nonatomic, assign) NSInteger chartsSelectedIndex;
 
 @end
 
@@ -79,6 +81,9 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.emptyTextFont = [UIFont fontWithName:@"Arial" size:13];
     self.emptyTextColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     self.emptyText = @"暂无数据";
+    
+    self.chartsSelectedIndex = kDefaultSelectedIndex;
+    self.chartOpenItemSelected = NO;
 }
 
 - (void)setYMax:(CGFloat)yMax
@@ -329,7 +334,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     cell.backgroundColor = [UIColor clearColor];
     if (self.items.count > indexPath.row)
     {
-        [cell configItem:self.items[indexPath.row]];
+        [cell configItem:self.items[indexPath.row]
+                selected:(self.chartOpenItemSelected ? (self.chartsSelectedIndex == indexPath.row) : self.chartOpenItemSelected)];
     }
     
     return cell;
@@ -474,6 +480,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     if (self.items.count > index)
     {
+        self.chartsSelectedIndex = index;
+
         self.maskView.hidden = YES;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self barDidSeleted:[NSIndexPath indexPathForRow:index inSection:0]];
@@ -507,6 +515,19 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 
 - (void)barDidSeleted:(NSIndexPath *)indexPath
 {
+    if (self.chartOpenItemSelected && indexPath.row != self.chartsSelectedIndex)
+    {
+        NSMutableArray *tempIndexPathArray = [NSMutableArray array];
+        if (self.chartsSelectedIndex < self.items.count)
+        {
+            NSIndexPath *tempOldIndexPath = [NSIndexPath indexPathForRow:self.chartsSelectedIndex inSection:0];
+            [tempIndexPathArray addObject:tempOldIndexPath];
+        }
+        self.chartsSelectedIndex = indexPath.row;
+        [tempIndexPathArray addObject:indexPath];
+        [self.chartsCollectionView reloadItemsAtIndexPaths:tempIndexPathArray];
+    }
+    
     if (!self.maskHide)
     {
         JWBarChartsItem *tempItem = self.items[indexPath.row];
@@ -539,6 +560,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
             self.maskView.hidden = self.maskHide;
             [self bringSubviewToFront:self.maskView];
         }];
+        
+        !self.barItemMinX?:self.barItemMinX(tempCenterX);
     }
 }
 /*

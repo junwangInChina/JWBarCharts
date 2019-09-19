@@ -150,20 +150,20 @@
 }
 
 #pragma mark - Public Method
-- (void)configItem:(JWBarChartsItem *)item
+- (void)configItem:(JWBarChartsItem *)item selected:(BOOL)selected
 {
     self.valueLabel.hidden = item.itemValueLableHide;
-    self.valueLabel.textColor = item.itemValueLabelTextColor;
-    self.valueLabel.font = item.itemValueLabelFont;
+    self.valueLabel.textColor = selected ? item.itemValueLabelSelectedTextColor : item.itemValueLabelTextColor;
+    self.valueLabel.font = selected ? item.itemValueLabelSelectedFont : item.itemValueLabelFont;
     self.valueLabel.text = item.itemValueLabelText;
     self.valueLabel.textAlignment = (item.itemValueLabelWidth > CGRectGetWidth(self.frame)) ? NSTextAlignmentLeft : NSTextAlignmentCenter;
     
-    self.xAxisLabel.textColor = item.itemXaisLabelTextColor;
-    self.xAxisLabel.font = item.itemXaisLabelFont;
+    self.xAxisLabel.textColor = selected ? item.itemXaisLabelSelectedTextColor : item.itemXaisLabelTextColor;
+    self.xAxisLabel.font = selected ? item.itemXaisLabelSelectedFont : item.itemXaisLabelFont;
     self.xAxisLabel.text = item.itemXaisText;
     
     self.barView.values = item.itemValues;
-    self.barView.colors = item.itemBackgroundColors;
+    self.barView.colors = selected ? item.itemSelectedBackgroundColors : item.itemBackgroundColors;
     self.barView.multiplieds = item.itemMultipliedArray;
     self.barView.isStacking = item.itemIsStacking;
     [self.barView reloadChartLine];
