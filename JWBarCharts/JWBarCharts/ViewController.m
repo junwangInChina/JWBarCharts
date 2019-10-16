@@ -57,6 +57,7 @@
     tempBarView.maskTextAlignment = NSTextAlignmentLeft;
     tempBarView.barType = JWBarChartsBarTypeJuxtaposition;
     tempBarView.barWidthMultiplied = 0.8;
+    tempBarView.barDefaultWidth = 30;
     tempBarView.chartOpenItemSelected = YES;
     [self.view addSubview:tempBarView];
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {

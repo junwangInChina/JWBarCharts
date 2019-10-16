@@ -53,6 +53,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.barType = JWBarChartsBarTypeStacking;
     
     self.barWidthMultiplied = 0.5;
+    self.barDefaultWidth = 0;
     
     self.yMin = 0;
     self.yHide = NO;
@@ -268,7 +269,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     if (!_chartsCollectionView)
     {
         UICollectionViewFlowLayout *tempLayout = [[UICollectionViewFlowLayout alloc] init];
-        tempLayout.itemSize = CGSizeMake((JW_BARCHARTS_SCREEN_WIDTH - JW_BARCHARTS_YAXIS_WIDTH)/7.0,
+        tempLayout.itemSize = CGSizeMake((self.barDefaultWidth > 0 ? self.barDefaultWidth : (JW_BARCHARTS_SCREEN_WIDTH - JW_BARCHARTS_YAXIS_WIDTH)/7.0),
                                          CGRectGetHeight(self.frame));
         tempLayout.minimumLineSpacing = 0;
         tempLayout.minimumInteritemSpacing = 0;
@@ -323,7 +324,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((JW_BARCHARTS_SCREEN_WIDTH - (!self.yHide && self.yLabelTexts.count > 0 ? JW_BARCHARTS_YAXIS_WIDTH : 0))/7.0,
+    return CGSizeMake((self.barDefaultWidth > 0 ? self.barDefaultWidth : (JW_BARCHARTS_SCREEN_WIDTH - (!self.yHide && self.yLabelTexts.count > 0 ? JW_BARCHARTS_YAXIS_WIDTH : 0))/7.0),
                       CGRectGetHeight(self.frame) - self.marginTop - self.marginBottom);
 }
 

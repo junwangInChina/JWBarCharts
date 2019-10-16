@@ -29,6 +29,8 @@ typedef NS_ENUM(NSInteger, JWBarChartsBarType) {
 @property (nonatomic, assign) BOOL yHide;                // default NO
 
 @property (nonatomic, assign) CGFloat barWidthMultiplied;   // default is 0.5
+@property (nonatomic, assign) CGFloat barDefaultWidth;             // default is 0
+
 
 @property (nonatomic, strong) UIFont *xLabelTextFont;       // default Arial 13
 @property (nonatomic, strong) UIColor *xLabelTextColor;     // default #333333
