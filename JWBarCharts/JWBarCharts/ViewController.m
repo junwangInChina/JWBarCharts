@@ -58,7 +58,7 @@
     tempBarView.barType = JWBarChartsBarTypeJuxtaposition;
     tempBarView.barWidthMultiplied = 0.8;
     tempBarView.barDefaultWidth = 30;
-    tempBarView.chartOpenItemSelected = YES;
+    tempBarView.chartOpenItemSelected = NO;
     [self.view addSubview:tempBarView];
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(this.view);
