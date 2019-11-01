@@ -51,7 +51,7 @@
     tempBarView.marginTop = 10;
     tempBarView.marginBottom = 10;
 //    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
-    tempBarView.maskHide = NO;
+    tempBarView.maskHide = YES;
     tempBarView.yHide = YES;
     tempBarView.xSeparatorHide = NO;
     tempBarView.maskTextAlignment = NSTextAlignmentLeft;

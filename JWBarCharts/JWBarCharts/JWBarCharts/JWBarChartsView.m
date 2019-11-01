@@ -520,7 +520,6 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     if (self.chartOpenItemSelected && indexPath.row != self.chartsSelectedIndex)
     {
-        /*
         NSMutableArray *tempIndexPathArray = [NSMutableArray array];
         if (self.chartsSelectedIndex < self.items.count)
         {
@@ -529,10 +528,8 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         }
         self.chartsSelectedIndex = indexPath.row;
         [tempIndexPathArray addObject:indexPath];
-        [self.chartsCollectionView reloadItemsAtIndexPaths:tempIndexPathArray];
-         */
-        self.chartsSelectedIndex = indexPath.row;
         [self.chartsCollectionView reloadData];
+        [self.chartsCollectionView reloadItemsAtIndexPaths:tempIndexPathArray];
     }
     
     if (!self.maskHide || self.barItemMinX)
@@ -558,6 +555,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
             self.maskView.maskTextColor = tempItem.itemMaskLabelTextColor;
             [self.maskView reload:tempItem.itemMaskText];
             
+            [self layoutIfNeeded];
             // 刷新位置
             JW_BC_WS(this)
             [UIView animateWithDuration:0.3 animations:^{
