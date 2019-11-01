@@ -520,6 +520,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
 {
     if (self.chartOpenItemSelected && indexPath.row != self.chartsSelectedIndex)
     {
+        /*
         NSMutableArray *tempIndexPathArray = [NSMutableArray array];
         if (self.chartsSelectedIndex < self.items.count)
         {
@@ -529,6 +530,9 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         self.chartsSelectedIndex = indexPath.row;
         [tempIndexPathArray addObject:indexPath];
         [self.chartsCollectionView reloadItemsAtIndexPaths:tempIndexPathArray];
+         */
+        self.chartsSelectedIndex = indexPath.row;
+        [self.chartsCollectionView reloadData];
     }
     
     if (!self.maskHide || self.barItemMinX)
