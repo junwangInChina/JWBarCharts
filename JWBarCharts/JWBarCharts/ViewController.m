@@ -34,44 +34,25 @@
 - (void)configBaseBarCharts
 {
     __weak __typeof(&*self)this = self;
-
-    UIView *tempTopView = [UIView new];
-    tempTopView.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:tempTopView];
-    [tempTopView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(this.view);
-        make.height.mas_equalTo(100);
-    }];
-    
-    
     
     JWBarChartsView *tempBarView = [JWBarChartsView new];
     tempBarView.yMax = 24;
     tempBarView.backgroundColor = [UIColor whiteColor];
     tempBarView.marginTop = 10;
-    tempBarView.marginBottom = 10;
-//    tempBarView.yLabelTexts = @[@"0",@"6",@"12",@"18",@"24"];
+    tempBarView.marginBottom = 20;
     tempBarView.maskHide = YES;
     tempBarView.yHide = YES;
     tempBarView.xSeparatorHide = NO;
     tempBarView.maskTextAlignment = NSTextAlignmentLeft;
-    tempBarView.barType = JWBarChartsBarTypeJuxtaposition;
-    tempBarView.barWidthMultiplied = 0.8;
-    tempBarView.barDefaultWidth = 30;
+    tempBarView.barType = JWBarChartsBarTypeStacking;
+    tempBarView.barWidthMultiplied = 0.6;
+    tempBarView.barDefaultWidth = 50;
     tempBarView.chartOpenItemSelected = YES;
     [self.view addSubview:tempBarView];
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(this.view);
         make.top.equalTo(this.view).with.offset(100);
         make.height.mas_equalTo(400);
-    }];
-    
-    UIView *tempBottomView = [UIView new];
-    tempBottomView.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:tempBottomView];
-    [tempBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(this.view);
-        make.top.equalTo(this.view).with.offset(500);
     }];
     
     tempBarView.barTouch = ^(NSInteger touchIndex, JWBarChartsItem *item) {

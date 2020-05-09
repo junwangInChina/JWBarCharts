@@ -71,10 +71,8 @@
                 else
                 {
                     make.left.equalTo(this);
-
                 }
             }
-            
         }];
         preView = tempView;
     }
