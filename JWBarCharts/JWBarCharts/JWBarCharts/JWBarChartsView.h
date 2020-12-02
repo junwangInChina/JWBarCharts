@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger, JWBarChartsBarType) {
 @property (nonatomic, copy) NSString *emptyText;            // default 暂无数据
 
 @property (nonatomic, assign) BOOL chartOpenItemSelected;        // 是否开启选中功能，默认不开启
+@property (nonatomic, assign) BOOL chartItemRadius;         // 柱子是否保持圆角，默认不圆角
+
 
 @property (nonatomic, strong) NSArray *items;
 

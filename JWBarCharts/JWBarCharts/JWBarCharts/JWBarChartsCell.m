@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic, strong) NSArray *multiplieds;
 @property (nonatomic, assign) BOOL isStacking;
+@property (nonatomic, assign) BOOL isRadius;
+
 
 @end
 
@@ -43,7 +45,12 @@
         
         UIView *tempView = [UIView new];
         tempView.backgroundColor = tempColor;
+        if (self.isRadius)
+        {
+            tempView.layer.cornerRadius = 3;
+        }
         [self addSubview:tempView];
+        
         [tempView mas_makeConstraints:^(MASConstraintMaker *make) {
             
             if (self.isStacking)
@@ -57,6 +64,40 @@
                 else
                 {
                     make.bottom.equalTo(this);
+                }
+                // 最后一个
+                if (i == self.values.count - 1)
+                {
+                    if ([self.multiplieds[i] floatValue] > 0 && self.isRadius)
+                    {
+                        UIView *tempBottomCoverView = [UIView new];
+                        tempBottomCoverView.backgroundColor = tempView.backgroundColor;
+                        [tempView addSubview:tempBottomCoverView];
+                        [tempBottomCoverView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.bottom.left.right.equalTo(tempView);
+                            make.height.mas_equalTo(3);
+                        }];
+                    }
+                    
+                } else {
+                    if ([self.multiplieds[i] floatValue] > 0 && self.isRadius)
+                    {
+                        UIView *tempTopCoverView = [UIView new];
+                        tempTopCoverView.backgroundColor = tempView.backgroundColor;
+                        [tempView addSubview:tempTopCoverView];
+                        [tempTopCoverView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.left.right.equalTo(tempView);
+                            make.height.mas_equalTo(3);
+                        }];
+                        
+                        UIView *tempBottomCoverView = [UIView new];
+                        tempBottomCoverView.backgroundColor = tempView.backgroundColor;
+                        [tempView addSubview:tempBottomCoverView];
+                        [tempBottomCoverView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.bottom.left.right.equalTo(tempView);
+                            make.height.mas_equalTo(3);
+                        }];
+                    }
                 }
             }
             else
@@ -72,6 +113,18 @@
                 {
                     make.left.equalTo(this);
                 }
+                
+                if ([self.multiplieds[i] floatValue] > 0 && self.isRadius)
+                {
+                    UIView *tempBottomCoverView = [UIView new];
+                    tempBottomCoverView.backgroundColor = tempView.backgroundColor;
+                    [tempView addSubview:tempBottomCoverView];
+                    [tempBottomCoverView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.bottom.left.right.equalTo(tempView);
+                        make.height.mas_equalTo(3);
+                    }];
+                }
+                
             }
         }];
         preView = tempView;
@@ -164,6 +217,7 @@
     self.barView.colors = selected ? item.itemSelectedBackgroundColors : item.itemBackgroundColors;
     self.barView.multiplieds = item.itemMultipliedArray;
     self.barView.isStacking = item.itemIsStacking;
+    self.barView.isRadius = item.itemIsRadius;
     [self.barView reloadChartLine];
     
     JW_BC_WS(this)

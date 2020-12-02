@@ -54,7 +54,7 @@
 //    }
 }
 
-- (void)setItemIsStacking:(CGFloat)itemIsStacking
+- (void)setItemIsStacking:(BOOL)itemIsStacking
 {
     _itemIsStacking = itemIsStacking;
     

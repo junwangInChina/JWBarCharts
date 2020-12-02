@@ -42,6 +42,9 @@
 
 @property (nonatomic, assign) CGFloat itemWidthMultiplied;
 
-@property (nonatomic, assign) CGFloat itemIsStacking;               // 柱子是否堆叠
+@property (nonatomic, assign) BOOL itemIsStacking;               // 柱子是否堆叠
+
+@property (nonatomic, assign) BOOL itemIsRadius;                 // 柱子是否圆角
+
 
 @end
