@@ -86,6 +86,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
     self.chartsSelectedIndex = kDefaultSelectedIndex;
     self.chartOpenItemSelected = NO;
     self.chartItemRadius = NO;
+    self.chartItemShadow = NO;
 }
 
 - (void)setYMax:(CGFloat)yMax
@@ -431,6 +432,7 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
             tempItem.itemValueMax = self.yMax;
             tempItem.itemWidthMultiplied = self.barWidthMultiplied;
             tempItem.itemIsRadius = self.chartItemRadius;
+            tempItem.itemIsShadow = self.chartItemShadow;
         }
         
         [self.chartsCollectionView reloadData];

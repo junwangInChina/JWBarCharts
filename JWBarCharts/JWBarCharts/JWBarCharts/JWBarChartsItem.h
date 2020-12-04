@@ -46,5 +46,7 @@
 
 @property (nonatomic, assign) BOOL itemIsRadius;                 // 柱子是否圆角
 
+@property (nonatomic, assign) BOOL itemIsShadow;                 // 柱子是否开启阴影效果
+
 
 @end

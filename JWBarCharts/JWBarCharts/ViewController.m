@@ -49,6 +49,7 @@
     tempBarView.barDefaultWidth = 50;
     tempBarView.chartOpenItemSelected = YES;
     tempBarView.chartItemRadius = YES;
+    tempBarView.chartItemShadow = YES;
     [self.view addSubview:tempBarView];
     [tempBarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(this.view);

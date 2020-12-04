@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSArray *multiplieds;
 @property (nonatomic, assign) BOOL isStacking;
 @property (nonatomic, assign) BOOL isRadius;
+@property (nonatomic, assign) BOOL isShadow;
 
 
 @end
@@ -45,6 +46,13 @@
         
         UIView *tempView = [UIView new];
         tempView.backgroundColor = tempColor;
+        if (self.isShadow)
+        {
+            tempView.layer.shadowColor = tempColor.CGColor;
+            tempView.layer.shadowOffset = CGSizeMake(0, 0);
+            tempView.layer.shadowOpacity = 0.5;
+            tempView.layer.shadowRadius = 8;
+        }
         if (self.isRadius)
         {
             tempView.layer.cornerRadius = 3;
@@ -218,6 +226,7 @@
     self.barView.multiplieds = item.itemMultipliedArray;
     self.barView.isStacking = item.itemIsStacking;
     self.barView.isRadius = item.itemIsRadius;
+    self.barView.isShadow = item.itemIsShadow;
     [self.barView reloadChartLine];
     
     JW_BC_WS(this)
