@@ -533,9 +533,9 @@ static NSString *kBarChartsCell = @"JWBarChartsViewCollectionViewCellIdentifier"
         self.chartsSelectedIndex = indexPath.row;
         [tempIndexPathArray addObject:indexPath];
         [self.chartsCollectionView reloadData];
-        [UIView performWithoutAnimation:^{
-            [self.chartsCollectionView reloadItemsAtIndexPaths:tempIndexPathArray];
-        }];
+//        [UIView performWithoutAnimation:^{
+//            [self.chartsCollectionView reloadItemsAtIndexPaths:tempIndexPathArray];
+//        }];
     }
     
     if (!self.maskHide || self.barItemMinX)
