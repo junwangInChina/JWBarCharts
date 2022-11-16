@@ -1,8 +1,8 @@
 
 Pod::Spec.new do |s|
 
-  s.name         = "JWBarCharts"
-  s.version      = "0.3.4"
+  s.name         = "JWBarChart"
+  s.version      = "0.3.5"
   s.summary      = "一款自用的柱状图"
 
   s.homepage     = "https://github.com/junwangInChina/JWBarCharts"
